@@ -1,0 +1,38 @@
+@import '../../../../../styles/variables.scss';
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+
+
+  .divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem 0;
+    width: 100%;
+  }
+
+  .divider::before,
+  .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background-color: #ccc;
+
+  }
+
+  .divider span {
+    margin: 0 1rem;
+    /* Space around "OR" text */
+    font-size: 1rem;
+    /* Adjust font size */
+    color: #ccc;
+    /* Adjust text color */
+    white-space: nowrap;
+    /* Prevents text wrapping */
+    line-height: 1;
+  }
+}
