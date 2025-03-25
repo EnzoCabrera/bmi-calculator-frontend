@@ -1,8 +1,9 @@
 <div class="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
   <div class="flex flex-column align-items-center justify-content-center">
-    <div style="border-radius: 30px; padding: 0.3rem; border: 3px solid #1E90FF; background: transparent;">
-      <div class="w-full surface-card py-4 px-5 sm:px-8" style="border-radius:53px">
+    <div class="outer-container">
+      <div class="w-full surface-card py-4 px-5 sm:px-8" style="border: 2px solid #1E90FF; border-radius: 30px;">
         <div class="text-center mb-5">
+          <img src="assets/layout/images/logo-BMI.svg" style="width: 140px; height: auto;">
           <div class="text-900 text-3xl font-medium mb-3">Bem-vindo ao BMI!</div>
         </div>
         <div>
@@ -28,8 +29,6 @@
               <p-checkbox id="rememberme1" [binary]="true" styleClass="mr-2"></p-checkbox>
               <label for="rememberme1">Remember me</label>
             </div>
-            <a class="font-medium no-underline ml-2 text-right cursor-pointer"
-              style="color: var(--primary-color)">Esqueceu a senha?</a>
           </div>
           <div class="button-container">
             <button pButton pRipple label="Registrar" class="w-full p-3 text-xl" (click)="signupConcluded()"></button>
@@ -39,4 +38,3 @@
       </div>
     </div>
   </div>
-</div>
