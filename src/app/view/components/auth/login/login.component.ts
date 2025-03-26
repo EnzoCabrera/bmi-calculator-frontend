@@ -17,7 +17,7 @@ export class LoginComponent {
 
     valCheck: string[] = ['remember'];
 
-    constructor( private http: HttpClient ,private router: Router, private authService: AuthService, public layoutService: LayoutService) { }
+    constructor( private http: HttpClient ,private router: Router, private authService: AuthService, public layoutService: LayoutService ) { }
 
 
     loginConcluded() {
@@ -30,7 +30,7 @@ export class LoginComponent {
             (response) => {
                 console.log('Login successful:', response);
                 this.authService.saveToken(response.access_token);
-                this.router.navigate(['/dashboard']);
+                this.router.navigate(['/bmi']);
             },
             (error) => {
                 console.error('Login failed:', error);

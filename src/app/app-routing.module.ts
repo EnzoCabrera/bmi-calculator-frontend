@@ -15,7 +15,7 @@ import { AppLayoutComponent } from "./layout/app.layout.component";
             {
                 path: '', component: AppLayoutComponent,
                 children: [
-                    { path: 'dashboard', loadChildren: () => import('./view/components/dashboard/dashboard.module').then(m => m.DashboardModule) },
+                    { path: 'bmi', loadChildren: () => import('./view/components/bmi/bmi.module').then(m => m.BmiModule) },
                 ]
             },
         ], { scrollPositionRestoration: 'enabled', anchorScrolling: 'enabled', onSameUrlNavigation: 'reload' })

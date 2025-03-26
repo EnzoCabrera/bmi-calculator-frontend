@@ -42,7 +42,7 @@ export class SignupComponent {
         this.authService.signup(this.email, this.password, this.fullName).subscribe(
             (response) => {
                 alert('Cadastro realizado com sucesso');
-                this.router.navigate(['/dashboard']);
+                this.router.navigate(['/bmi']);
             },
             (error) => {
                 this.errorMessage = 'Email já cadastrado';
