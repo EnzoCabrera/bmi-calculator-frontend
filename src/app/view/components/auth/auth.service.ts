@@ -1,6 +1,5 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Password } from "primeng/password";
 import { catchError, map, Observable, switchMap, tap, throwError } from "rxjs";
 
 @Injectable({
@@ -8,21 +7,9 @@ import { catchError, map, Observable, switchMap, tap, throwError } from "rxjs";
 })
 
 export class AuthService {
-  private apiUrl = 'http://localhost:8000/users';
+  private apiUrl = 'http://127.0.0.1:8000/api/users';
 
   constructor(private http: HttpClient) { }
-
-  saveToken(token: string): void {
-    localStorage.setItem('token', token);
-  }
-
-  getToken(): string | null {
-    return localStorage.getItem('token');
-  }
-
-  logout(): void {
-    localStorage.removeItem('token');
-  }
 
   login(email: string, password: string): Observable<any> {
     return this.http.get<any[]>(`${this.apiUrl}?email=${email}&password=${password}`).pipe(
@@ -50,7 +37,24 @@ export class AuthService {
   }
 
   signup(email: string, password: string, fullName: string): Observable<any> {
-    return this.http.post<any>(this.apiUrl, { email, password, full_name: fullName });
+    return this.http.post<any>(`${this.apiUrl}/register`, { email, password, full_name: fullName });
   }
+
+  saveToken(token: string): void {
+    localStorage.setItem('token', token);
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
+  logout(): void {
+    localStorage.removeItem('token');
+  }
+
+
+  
+
+  
 
 }
