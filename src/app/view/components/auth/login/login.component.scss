@@ -1,121 +1,40 @@
-@import '../../../../../styles/variables.scss';
-
-.surface-ground {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-}
-
-.outer-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  min-height: 100vh;
-}
-
-.surface-card {
-  border: 2px solid $secondary-color;
-  border-radius: 30px;
-  background: transparent;
-  width: 100%;
-  padding: 1.5rem;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  max-width: 32rem; 
-  display: flex; // Torna o card um contêiner flexível
-  flex-direction: column; // Garante que os elementos sejam empilhados verticalmente
-  align-items: center; // Centraliza os elementos horizontalmente
-}
-
-label {
-  display: block;
-  text-align: left;
-  width: 100%; // Garante que o label ocupe toda a largura disponível até o limite do max-width
-  max-width: 25rem; // Define uma largura máxima fixa menor
-  margin: 0 auto 0.25rem auto; // Centraliza os labels horizontalmente
-  padding-left: 0.5rem; 
-}
-
-.p-password {
-  width: 100% !important;
-  max-width: 30rem;
-  display: flex;
-  margin-top: 0.5rem !important;
-}
-
-.p-password input {
-  width: 100% !important;
-  padding: 1rem;
-  
-}
-
-.button-container {
-  margin-top: 0.5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-
-  button {
-    background-color: $secondary-color;
-    color: white;
-    border: none;
-    padding: 0.75rem;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1rem;
-    width: 100%;
-    max-width: rem;
-    transition: background-color 0.3s ease-in-out;
-
-    &:hover {
-      background-color: #1C86EE;
+:host ::ng-deep {
+    .pi-eye,
+    .pi-eye-slash {
+        transform: scale(1.6);
+        margin-right: 1rem;
+        color: var(--primary-color) !important;
     }
 
-    &:active {
-      background-color: #1874CD;
+    .p-button,
+    .p-password,
+    label,
+    input {
+        width: 100%;
     }
-  }
 
+    .p-message {
+        border: none;
 
-  .divider {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 1rem 0;
-    width: 100%;
-  }
+        .p-message-wrapper {
+            padding: 0.5rem 0.75rem;
+        }
 
-  .divider::before,
-  .divider::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background-color: #ccc;
+        .p-message-close {
+            width: 1.75rem;
+            height: 1.75rem;
+        }
 
-  }
+        .p-icon {
+            width: 1rem;
+            height: 1rem;
+        }
 
-  .divider span {
-    margin: 0 1rem;
-    font-size: 1rem;
-    color: #ccc;
-    white-space: nowrap;
-    line-height: 1;
-  }
-
+        .p-message-icon {
+            display: none;
+        }
+    }
 }
-
-.custom-input-container {
-  width: 100%;
-  max-width: 30rem;
-  margin-bottom: 1.25rem;
-  padding: 1rem;
+.container {
+    width: 360px;
 }
-
-
-
-
-
-
-

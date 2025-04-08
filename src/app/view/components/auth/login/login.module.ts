@@ -1,23 +1,28 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginRoutingModule } from './login-routing.module';
-import { LoginComponent } from './login.component';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
-import { FormsModule } from '@angular/forms';
-import { PasswordModule } from 'primeng/password';
 import { InputTextModule } from 'primeng/inputtext';
+import { MessagesModule } from 'primeng/messages';
+import { PasswordModule } from 'primeng/password';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { LoginRoutingModule } from './login-routing.module';
+import { LoginComponent } from './login.component';
 
 @NgModule({
     imports: [
         CommonModule,
-        LoginRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
         ButtonModule,
         CheckboxModule,
         InputTextModule,
-        FormsModule,
-        PasswordModule
+        MessagesModule,
+        PasswordModule,
+        ProgressSpinnerModule,
+        LoginRoutingModule,
     ],
-    declarations: [LoginComponent]
+    declarations: [LoginComponent],
 })
-export class LoginModule { }
+export class LoginModule {}
