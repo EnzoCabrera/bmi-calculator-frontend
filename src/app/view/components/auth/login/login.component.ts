@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -25,7 +24,6 @@ export class LoginComponent {
     constructor(
         private router: Router,
         private authService: AuthService,
-        public layoutService: LayoutService,
         private messageService: MessageService
     ) {
     }
@@ -44,7 +42,6 @@ export class LoginComponent {
                 icon: 'pi pi-exclamation-triangle',
             });
         } else {
-
             this.router.navigate(['/bmi']);
         }
 

@@ -1,25 +1,28 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
-import { FormsModule } from '@angular/forms';
-import { PasswordModule } from 'primeng/password';
 import { InputTextModule } from 'primeng/inputtext';
-import { SignupComponent } from './signup.component';
+import { MessagesModule } from 'primeng/messages';
+import { PasswordModule } from 'primeng/password';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { SignupRoutingModule } from './signup-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { SignupComponent } from './signup.component';
 
 @NgModule({
     imports: [
         CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
         ButtonModule,
         CheckboxModule,
         InputTextModule,
-        FormsModule,
+        MessagesModule,
         PasswordModule,
+        ProgressSpinnerModule,
         SignupRoutingModule,
-        HttpClientModule
     ],
-    declarations: [SignupComponent]
+    declarations: [SignupComponent],
 })
-export class SignupModule { }
+export class SignupModule {}

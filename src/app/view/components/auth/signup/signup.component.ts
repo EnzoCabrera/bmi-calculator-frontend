@@ -1,30 +1,64 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import { AuthService } from '../auth.service';
+import { MessageService } from 'primeng/api';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-signup',
     templateUrl: './signup.component.html',
-    styleUrls: ['./signup.component.scss']
-
+    styleUrls: ['./signup.component.scss'],
+    providers: [MessageService],
 })
 export class SignupComponent {
-    email = '';
-    password = '';
-    fullName = '';
-    confirmPassword = '';
-    errorMessage = '';
+    signupForm = new FormGroup(
+        {
+            fullName: new FormControl('', [Validators.required]),
+            email: new FormControl('', [Validators.required, Validators.email]),
+            password: new FormControl('', [Validators.required]),
+            passwordConfirmation: new FormControl('', [Validators.required]),
+        },
+        { updateOn: 'blur' }
+    );
 
+    loading: boolean = false;
 
-    valCheck: string[] = ['remember'];
+    constructor(
+        private router: Router,
+        private authService: AuthService,
+        private messageService: MessageService
+    ) {}
 
+    signup() {
+        this.loading = true;
 
+        setTimeout(() => {
+            this.loading = false;
+        }, 2000);
 
-    constructor(private router: Router, public layoutService: LayoutService, private authService: AuthService) { }
+        if (this.signupForm.get('password').value != this.signupForm.get('passwordConfirmation').value) {
+            this.messageService.add({
+                severity: 'error',
+                detail: 'As senhas não coincidem!',
+                icon: 'pi pi-exclamation-triangle',
+            });
+        }
 
-    signupConcluded() {
-        if (!this.email || !this.password || !this.fullName || !this.confirmPassword) {
+        if (this.signupForm.invalid || this.signupForm.value == null) {
+            this.messageService.add({
+                severity: 'error',
+                detail: 'Dados incorretos!',
+                icon: 'pi pi-exclamation-triangle',
+            });
+        } else {
+            this.router.navigate(['/bmi']);
+        }
+        /* if (
+            !this.email ||
+            !this.password ||
+            !this.fullName ||
+            !this.confirmPassword
+        ) {
             this.errorMessage = 'Todos os campos são obrigatórios';
             return;
         }
@@ -39,14 +73,30 @@ export class SignupComponent {
             return;
         }
 
-        this.authService.signup(this.email, this.password, this.fullName).subscribe(
-            (response) => {
-                alert('Cadastro realizado com sucesso');
-                this.router.navigate(['/bmi']);
-            },
-            (error) => {
-                this.errorMessage = 'Email já cadastrado';
-            }
-        );
+        this.authService
+            .signup(this.email, this.password, this.fullName)
+            .subscribe(
+                (response) => {
+                    alert('Cadastro realizado com sucesso');
+                    this.router.navigate(['/bmi']);
+                },
+                (error) => {
+                    this.errorMessage = 'Email já cadastrado';
+                }
+            ); */
+    }
+
+    getErrorMessage(fieldName: string) {
+        const field = this.signupForm.get(fieldName);
+
+        if (field?.hasError('required')) {
+            return 'Campo obrigatório';
+        }
+
+        if (field?.hasError('email')) {
+            return 'E-mail inválido';
+        }
+
+        return 'Campo inválido';
     }
 }
