@@ -15,7 +15,8 @@ import { AppLayoutComponent } from "./layout/app.layout.component";
             {
                 path: '', component: AppLayoutComponent,
                 children: [
-                    { path: 'bmi', loadChildren: () => import('./view/components/bmi/bmi.module').then(m => m.BmiModule) },
+                    /* { path: 'bmi', loadChildren: () => import('./view/components/bmi/bmi.module').then(m => m.BmiModule) }, */
+                    { path: 'dashboard', loadChildren: () => import('./view/components/dashboard/dashboard.module').then(m => m.DashboardModule)}
                 ]
             },
         ], { scrollPositionRestoration: 'enabled', anchorScrolling: 'enabled', onSameUrlNavigation: 'reload' })

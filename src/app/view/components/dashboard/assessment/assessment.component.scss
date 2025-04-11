@@ -1,0 +1,32 @@
+.card {
+    max-width: 344px;
+    height: 144px;
+    background-blend-mode: darken;
+    cursor: pointer;
+
+    display: flex;
+    flex-direction: column;
+
+    &--male {
+        background: #f3f3f4
+            url("../../../../../assets/layout/images/man-running.png") no-repeat;
+        background-position: 41% 3%;
+    }
+
+    &--female {
+        background: #f3f3f4
+            url("../../../../../assets/layout/images/woman-running.png")
+            no-repeat;
+        background-position: 41% 7%;
+    }
+
+    input {
+        display: none;
+    }
+}
+
+label:has(input:checked){
+    border: 1px solid var(--primary-500) !important;
+    box-shadow: var(--primary-100) 0px 0px 0px 3px;
+}
+
