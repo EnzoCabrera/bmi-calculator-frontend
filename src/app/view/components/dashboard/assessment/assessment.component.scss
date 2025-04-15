@@ -1,6 +1,17 @@
+:host ::ng-deep {
+    .p-stepper-panels {
+        border-radius: 12px;
+    }
+
+    .p-stepper-nav {
+        display: none;
+    }
+}
+
 .card {
-    max-width: 344px;
     height: 144px;
+    padding: 14px;
+    border-radius: 12px;
     background-blend-mode: darken;
     cursor: pointer;
 
@@ -25,8 +36,7 @@
     }
 }
 
-label:has(input:checked){
+label:has(input:checked) {
     border: 1px solid var(--primary-500) !important;
     box-shadow: var(--primary-100) 0px 0px 0px 3px;
 }
-

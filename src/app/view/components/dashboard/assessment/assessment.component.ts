@@ -1,24 +1,53 @@
 import { Component, OnInit } from '@angular/core';
-import { StepsModule } from 'primeng/steps';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
-import { MenuItem } from 'primeng/api';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputTextModule } from 'primeng/inputtext';
+import { StepperModule } from 'primeng/stepper';
 
 @Component({
     selector: 'app-assessment',
     standalone: true,
-    imports: [StepsModule, ButtonModule, FormsModule],
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        ButtonModule,
+        InputGroupModule,
+        InputGroupAddonModule,
+        InputTextModule,
+        StepperModule,
+    ],
     templateUrl: './assessment.component.html',
     styleUrl: './assessment.component.scss',
 })
 export class AssessmentComponent implements OnInit {
-    items: MenuItem[] | undefined;
+    active: number | undefined = 0;
 
-    ngOnInit() {
-        this.items = [
-            { label: 'Gênero', routerLink: '' },
-            { label: 'Peso', routerLink: '' },
-            { label: 'Altura', routerLink: '' },
-        ];
+    assessmentForm = new FormGroup(
+            {
+                gender: new FormControl('male', [Validators.required]),
+                weight: new FormControl('', [Validators.required]),
+                height: new FormControl('', [Validators.required])
+            }
+        );
+
+        loading: boolean = false;
+
+    ngOnInit() {}
+
+    calculateBmi() {
+        console.log(this.assessmentForm.value);
+    }
+
+    getErrorMessage(fieldName: string) {
+        const field = this.assessmentForm.get(fieldName);
+
+        if (field?.hasError('required')) {
+            return 'Campo obrigatório';
+        }
+
+
+        return 'Campo inválido';
     }
 }

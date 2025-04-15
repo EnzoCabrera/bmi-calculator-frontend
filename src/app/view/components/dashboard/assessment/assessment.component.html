@@ -1,21 +1,139 @@
+<form [formGroup]="assessmentForm" (ngSubmit)="calculateBmi()">
+    <p-stepper [(activeStep)]="active" [linear]="true">
+        <p-stepperPanel>
+            <ng-template
+                pTemplate="content"
+                let-nextCallback="nextCallback"
+                let-index="index"
+            >
+                <div class="flex flex-column gap-3 grid-nogutter">
+                    <h3 class="font-semibold text-center">
+                        Qual o seu gênero?
+                    </h3>
 
+                    <div class="grid grid-nogutter gap-2 sm:gap-3 w-full">
+                        <label for="male" class="col-12 sm:col card card--male">
+                            <input
+                                type="radio"
+                                name="gender"
+                                id="male"
+                                value="male"
+                                formControlName="gender"
+                            />
+                            <span class="title font-semibold">Masculino</span>
+                        </label>
 
-<p-steps [model]="items" [readonly]="false" />
+                        <label
+                            for="female"
+                            class="col-12 sm:col card card--female"
+                        >
+                            <input
+                                type="radio"
+                                name="gender"
+                                id="female"
+                                value="female"
+                                formControlName="gender"
+                            />
+                            <span class="title font-semibold">Feminino</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="flex pt-4 justify-content-end">
+                    <p-button
+                        label="Avançar"
+                        icon="pi pi-arrow-right"
+                        iconPos="right"
+                        (onClick)="nextCallback.emit()"
+                    />
+                </div>
+            </ng-template>
+        </p-stepperPanel>
+        <p-stepperPanel>
+            <ng-template
+                pTemplate="content"
+                let-prevCallback="prevCallback"
+                let-nextCallback="nextCallback"
+                let-index="index"
+            >
+                <h3 class="font-semibold text-center">Qual o seu peso?</h3>
 
-<h3 class="font-semibold">Qual o seu gênero?</h3>
+                <p-inputGroup>
+                    <input
+                        pInputText
+                        pKeyFilter="num"
+                        class="w-full"
+                        placeholder="Seu peso"
+                        formControlName="weight"
+                    />
+                    <p-inputGroupAddon> kg </p-inputGroupAddon>
+                </p-inputGroup>
 
-<label for="male" class="card card--male">
-    <input type="radio" name="gender" id="male" value="male" />
-    <div class="title font-semibold">Masculino</div>
-</label>
+                @if (assessmentForm.get('weight').invalid &&
+                (assessmentForm.get('weight').dirty ||
+                assessmentForm.get('weight').touched) ) {
+                <small class="text-red-500 mt-2 block" id="weight-error">{{
+                    getErrorMessage("weight")
+                }}</small>
+                }
 
-<label for="female" class="card card--female">
-    <input type="radio" name="gender" id="female" value="female" />
-    <div class="title font-semibold">Feminino</div>
-</label>
+                <div class="flex pt-4 justify-content-between">
+                    <p-button
+                        label="Voltar"
+                        icon="pi pi-arrow-left"
+                        severity="secondary"
+                        (onClick)="prevCallback.emit()"
+                    />
+                    <p-button
+                        label="Avançar"
+                        icon="pi pi-arrow-right"
+                        iconPos="right"
+                        (onClick)="nextCallback.emit()"
+                    />
+                </div>
+            </ng-template>
+        </p-stepperPanel>
+        <p-stepperPanel>
+            <ng-template
+                pTemplate="content"
+                let-prevCallback="prevCallback"
+                let-index="index"
+            >
+                <h3 class="font-semibold text-center">Qual a sua altura?</h3>
 
-<p-button label="Próximo" />
+                <p-inputGroup>
+                    <input
+                        pInputText
+                        pKeyFilter="num"
+                        class="w-full"
+                        placeholder="Sua altura"
+                        formControlName="height"
+                    />
+                    <p-inputGroupAddon> cm </p-inputGroupAddon>
+                </p-inputGroup>
 
+                @if (assessmentForm.get('height').invalid &&
+                (assessmentForm.get('height').dirty ||
+                assessmentForm.get('height').touched) ) {
+                <small class="text-red-500 mt-2 block" id="height-error">{{
+                    getErrorMessage("height")
+                }}</small>
+                }
+                <div class="flex pt-4 justify-content-between">
+                    <p-button
+                        label="Voltar"
+                        icon="pi pi-arrow-left"
+                        severity="secondary"
+                        (onClick)="prevCallback.emit()"
+                    />
 
-
-<h3 class="font-semibold">Qual o seu peso?</h3>
+                    <button
+                        pButton
+                        pRipple
+                        label="Concluir"
+                        type="submit"
+                    ></button>
+                </div>
+            </ng-template>
+        </p-stepperPanel>
+    </p-stepper>
+</form>
