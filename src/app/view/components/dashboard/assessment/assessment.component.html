@@ -87,6 +87,7 @@
                         label="Avançar"
                         icon="pi pi-arrow-right"
                         iconPos="right"
+                        [disabled]="this.assessmentForm.get('weight').value == ''"
                         (onClick)="nextCallback.emit()"
                     />
                 </div>
@@ -130,6 +131,7 @@
                         pButton
                         pRipple
                         label="Concluir"
+                        [disabled]="this.assessmentForm.get('height').value == ''"
                         type="submit"
                     ></button>
                 </div>
