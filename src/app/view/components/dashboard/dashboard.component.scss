@@ -1,0 +1,18 @@
+:host ::ng-deep .p-panel-header {
+    background-color: var(--surface-0);
+    border-bottom: none;
+}
+
+:host {
+    #Arrows-Shrink-V--Streamline-Unicons {
+        fill: var(--blue-500) !important;
+    }
+
+    #Weight--Streamline-Unicons {
+        fill: var(--cyan-500) !important;
+    }
+
+    #Heartbeat--Streamline-Phosphor {
+        fill: var(--purple-500) !important;
+    }
+}
