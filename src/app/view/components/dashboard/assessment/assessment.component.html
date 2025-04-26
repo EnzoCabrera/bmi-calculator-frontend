@@ -7,9 +7,7 @@
                 let-index="index"
             >
                 <div class="flex flex-column gap-3 grid-nogutter">
-                    <h3 class="font-semibold text-center">
-                        Qual o seu gênero?
-                    </h3>
+                    <h3 class="text-2xl text-color font-semibold">Qual o seu gênero?</h3>
 
                     <div class="grid grid-nogutter gap-2 sm:gap-3 w-full">
                         <label for="male" class="col-12 sm:col card card--male">
@@ -55,7 +53,7 @@
                 let-nextCallback="nextCallback"
                 let-index="index"
             >
-                <h3 class="font-semibold text-center">Qual o seu peso?</h3>
+                <h3 class="text-2xl text-color font-semibold">Qual o seu peso?</h3>
 
                 <p-inputGroup>
                     <input
@@ -87,7 +85,9 @@
                         label="Avançar"
                         icon="pi pi-arrow-right"
                         iconPos="right"
-                        [disabled]="this.assessmentForm.get('weight').value == ''"
+                        [disabled]="
+                            this.assessmentForm.get('weight').value == ''
+                        "
                         (onClick)="nextCallback.emit()"
                     />
                 </div>
@@ -97,9 +97,10 @@
             <ng-template
                 pTemplate="content"
                 let-prevCallback="prevCallback"
+                let-nextCallback="nextCallback"
                 let-index="index"
             >
-                <h3 class="font-semibold text-center">Qual a sua altura?</h3>
+                <h3 class="text-2xl text-color font-semibold">Qual a sua altura?</h3>
 
                 <p-inputGroup>
                     <input
@@ -127,11 +128,57 @@
                         (onClick)="prevCallback.emit()"
                     />
 
+                    <p-button
+                        label="Avançar"
+                        icon="pi pi-arrow-right"
+                        iconPos="right"
+                        [disabled]="
+                            this.assessmentForm.get('height').value == ''
+                        "
+                        (onClick)="nextCallback.emit()"
+                    />
+                </div>
+            </ng-template>
+        </p-stepperPanel>
+        <p-stepperPanel>
+            <ng-template
+                pTemplate="content"
+                let-prevCallback="prevCallback"
+                let-index="index"
+            >
+                <h3 class="text-2xl text-color font-semibold">
+                    Quanto tempo livre você tem para treinar?
+                </h3>
+
+                <p-selectButton
+                    [options]="stateOptions"
+                    formControlName="freeTime"
+                    optionLabel="label"
+                    optionValue="value"
+                />
+
+                @if (assessmentForm.get('height').invalid &&
+                (assessmentForm.get('height').dirty ||
+                assessmentForm.get('height').touched) ) {
+                <small class="text-red-500 mt-2 block" id="height-error">{{
+                    getErrorMessage("height")
+                }}</small>
+                }
+                <div class="flex pt-4 justify-content-between">
+                    <p-button
+                        label="Voltar"
+                        icon="pi pi-arrow-left"
+                        severity="secondary"
+                        (onClick)="prevCallback.emit()"
+                    />
+
                     <button
                         pButton
                         pRipple
                         label="Concluir"
-                        [disabled]="this.assessmentForm.get('height').value == ''"
+                        [disabled]="
+                            this.assessmentForm.get('height').value == ''
+                        "
                         type="submit"
                     ></button>
                 </div>

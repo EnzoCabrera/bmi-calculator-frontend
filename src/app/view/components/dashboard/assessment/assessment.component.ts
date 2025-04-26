@@ -5,6 +5,7 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
 import { StepperModule } from 'primeng/stepper';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 @Component({
     selector: 'app-assessment',
@@ -17,6 +18,7 @@ import { StepperModule } from 'primeng/stepper';
         InputGroupAddonModule,
         InputTextModule,
         StepperModule,
+        SelectButtonModule
     ],
     templateUrl: './assessment.component.html',
     styleUrl: './assessment.component.scss',
@@ -24,15 +26,22 @@ import { StepperModule } from 'primeng/stepper';
 export class AssessmentComponent implements OnInit {
     active: number | undefined = 0;
 
+    stateOptions: any[] = [
+        { label: '1 hora', value: 1 },
+        { label: '2 horas', value: 2 },
+        { label: '3 horas', value: 3 }
+    ];
+
     assessmentForm = new FormGroup(
             {
                 gender: new FormControl('male', [Validators.required]),
                 weight: new FormControl('', [Validators.required]),
-                height: new FormControl('', [Validators.required])
+                height: new FormControl('', [Validators.required]),
+                freeTime: new FormControl('', [Validators.required])
             }
         );
 
-        loading: boolean = false;
+    loading: boolean = false;
 
     ngOnInit() {}
 
