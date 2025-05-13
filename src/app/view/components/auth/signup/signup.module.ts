@@ -7,6 +7,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { MessagesModule } from 'primeng/messages';
 import { PasswordModule } from 'primeng/password';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { ToastModule } from 'primeng/toast';
 import { SignupRoutingModule } from './signup-routing.module';
 import { SignupComponent } from './signup.component';
 
@@ -21,6 +22,7 @@ import { SignupComponent } from './signup.component';
         MessagesModule,
         PasswordModule,
         ProgressSpinnerModule,
+        ToastModule,
         SignupRoutingModule,
     ],
     declarations: [SignupComponent],

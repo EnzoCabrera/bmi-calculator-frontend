@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../services/auth.service';
 import { MessageService } from 'primeng/api';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { matchPasswordValidator } from '../validators/matchpassword.validator';
 
 @Component({
     selector: 'app-signup',
@@ -13,12 +14,21 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class SignupComponent {
     signupForm = new FormGroup(
         {
-            fullName: new FormControl('', [Validators.required]),
+            fullName: new FormControl('', [
+                Validators.required,
+                Validators.minLength(5),
+            ]),
             email: new FormControl('', [Validators.required, Validators.email]),
-            password: new FormControl('', [Validators.required]),
-            passwordConfirmation: new FormControl('', [Validators.required]),
+            password: new FormControl('', [
+                Validators.required,
+                Validators.minLength(5),
+            ]),
+            passwordConfirmation: new FormControl('', [
+                Validators.required,
+                Validators.minLength(5),
+            ]),
         },
-        { updateOn: 'blur' }
+        { validators: [matchPasswordValidator], updateOn: 'blur' }
     );
 
     loading: boolean = false;
@@ -30,60 +40,40 @@ export class SignupComponent {
     ) {}
 
     signup() {
+        const email = this.signupForm.get('email').value;
+        const password = this.signupForm.get('password').value;
+        const fullName = this.signupForm.get('fullName').value;
+
         this.loading = true;
 
-        setTimeout(() => {
-            this.loading = false;
-        }, 2000);
-
-        if (this.signupForm.get('password').value != this.signupForm.get('passwordConfirmation').value) {
-            this.messageService.add({
-                severity: 'error',
-                detail: 'As senhas não coincidem!',
-                icon: 'pi pi-exclamation-triangle',
-            });
-        }
-
-        if (this.signupForm.invalid || this.signupForm.value == null) {
-            this.messageService.add({
-                severity: 'error',
-                detail: 'Dados incorretos!',
-                icon: 'pi pi-exclamation-triangle',
-            });
-        } else {
-            this.router.navigate(['/bmi']);
-        }
-        /* if (
-            !this.email ||
-            !this.password ||
-            !this.fullName ||
-            !this.confirmPassword
-        ) {
-            this.errorMessage = 'Todos os campos são obrigatórios';
+        if (this.signupForm.invalid) {
             return;
         }
 
-        if (this.password !== this.confirmPassword) {
-            this.errorMessage = 'As senhas não coincidem';
-            return;
-        }
+        this.authService.signup(email, password, fullName).subscribe({
+            next: (response) => {
+                console.log(response);
 
-        if (this.password.length < 5) {
-            this.errorMessage = 'A senha deve ter no mínimo 5 caracteres';
-            return;
-        }
+                this.messageService.add({
+                    severity: 'success',
+                    detail: 'Usuário criado com sucesso!',
+                });
 
-        this.authService
-            .signup(this.email, this.password, this.fullName)
-            .subscribe(
-                (response) => {
-                    alert('Cadastro realizado com sucesso');
-                    this.router.navigate(['/bmi']);
-                },
-                (error) => {
-                    this.errorMessage = 'Email já cadastrado';
-                }
-            ); */
+                this.loading = false;
+
+                this.router.navigate(['/login']);
+            },
+            error: (error) => {
+                console.log(error);
+
+                this.messageService.add({
+                    severity: 'error',
+                    detail: 'Erro ao criar o usuário!',
+                });
+
+                this.loading = false;
+            },
+        });
     }
 
     getErrorMessage(fieldName: string) {
@@ -95,6 +85,17 @@ export class SignupComponent {
 
         if (field?.hasError('email')) {
             return 'E-mail inválido';
+        }
+
+        if (field?.hasError('minlength')) {
+            const requiredLength = field.errors
+                ? field.errors['minlength']['requiredLength']
+                : 5;
+            return `O campo deve ter no mínimo ${requiredLength} caracteres`;
+        }
+
+        if (this.signupForm.errors?.['matchPassword']) {
+            return 'As senhas não conferem';
         }
 
         return 'Campo inválido';
