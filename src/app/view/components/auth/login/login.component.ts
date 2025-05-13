@@ -14,7 +14,10 @@ export class LoginComponent {
     loginForm = new FormGroup(
         {
             email: new FormControl('', [Validators.required, Validators.email]),
-            password: new FormControl('', [Validators.required]),
+            password: new FormControl('', [
+                Validators.required,
+                Validators.minLength(5),
+            ]),
         },
         { updateOn: 'blur' }
     );
@@ -25,43 +28,40 @@ export class LoginComponent {
         private router: Router,
         private authService: AuthService,
         private messageService: MessageService
-    ) {
-    }
+    ) {}
 
     login() {
+        const email = this.loginForm.get('email').value;
+        const password = this.loginForm.get('password').value;
+
         this.loading = true;
 
-        setTimeout(() => {
-            this.loading = false;
-        }, 2000);
+        this.authService.login(email, password).subscribe({
+            next: (response) => {
+                console.log(response);
 
-        if (this.loginForm.invalid || this.loginForm.value == null) {
-            this.messageService.add({
-                severity: 'error',
-                detail: 'Usuário ou senha incorretos!',
-                icon: 'pi pi-exclamation-triangle',
-            });
-        } else {
-            this.router.navigate(['/bmi']);
-        }
-
-
-        /* if (!this.email || !this.password) {
-            this.errorMessage = 'Email e senha são obrigatórios';
-            return;
-        }
-
-        this.authService.login(this.email, this.password).subscribe(
-            (response) => {
-                console.log('Login successful:', response);
                 this.authService.saveToken(response.access_token);
-                this.router.navigate(['/bmi']);
+
+                this.messageService.add({
+                    severity: 'success',
+                    detail: 'Login realizado com sucesso!',
+                });
+
+                this.loading = false;
+
+                this.router.navigate(['/dashboard']);
             },
-            (error) => {
-                console.error('Login failed:', error);
-                this.errorMessage = 'Email ou senha inválidos';
-            }
-        ); */
+            error: (error) => {
+                console.log(error);
+
+                this.messageService.add({
+                    severity: 'error',
+                    detail: 'Usuário ou senha inválidos.',
+                });
+
+                this.loading = false;
+            },
+        });
     }
 
     getErrorMessage(fieldName: string) {

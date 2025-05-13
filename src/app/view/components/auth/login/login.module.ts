@@ -7,6 +7,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { MessagesModule } from 'primeng/messages';
 import { PasswordModule } from 'primeng/password';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { ToastModule } from 'primeng/toast';
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
 
@@ -20,6 +21,7 @@ import { LoginComponent } from './login.component';
         InputTextModule,
         MessagesModule,
         PasswordModule,
+        ToastModule,
         ProgressSpinnerModule,
         LoginRoutingModule,
     ],

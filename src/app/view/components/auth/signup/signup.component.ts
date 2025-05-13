@@ -72,7 +72,7 @@ export class SignupComponent {
                 });
 
                 this.loading = false;
-            },
+            }
         });
     }
 
