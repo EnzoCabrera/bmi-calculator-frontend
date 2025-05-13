@@ -1,20 +1,20 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { catchError, map, Observable, switchMap, tap, throwError } from "rxjs";
+import { environment } from "src/environments/environment.prod";
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class AuthService {
-  private apiUrl = 'http://127.0.0.1:8000/api/users';
 
   constructor(private http: HttpClient) { }
 
-  
+
 
   login(email: string, password: string): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/login`, { email, password })
+    return this.http.post<any>(`${environment.apiUrl}/login`, { email, password })
       .pipe(
         tap(response => {
           if (response.access_token && response.user_id) {
@@ -27,7 +27,7 @@ export class AuthService {
 
 
   signup(email: string, password: string, fullName: string): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/register`, { email, password, full_name: fullName });
+    return this.http.post<any>(`${environment.apiUrl}/register`, { email, password, full_name: fullName });
   }
 
   saveToken(token: string): void {
