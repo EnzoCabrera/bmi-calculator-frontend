@@ -10,14 +10,14 @@ export class AuthService {
     constructor(private http: HttpClient) {}
 
     login(email: string, password: string): Observable<any> {
-        return this.http.post<any>(`${environment.apiUrl}/login`, {
+        return this.http.post<any>(`${environment.apiUrl}/users/login`, {
             email,
             password,
         });
     }
 
     signup(email: string, password: string, fullName: string): Observable<any> {
-        return this.http.post<any>(`${environment.apiUrl}/register`, {
+        return this.http.post<any>(`${environment.apiUrl}/users/register`, {
             email,
             password,
             full_name: fullName,

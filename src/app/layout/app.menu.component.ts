@@ -2,6 +2,7 @@ import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { LayoutService } from './service/app.layout.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../view/components/auth/services/auth.service';
 
 @Component({
     selector: 'app-menu',
@@ -21,7 +22,11 @@ export class AppMenuComponent implements OnInit {
     model: any[] = [];
     bottomModel: any[] = [];
 
-    constructor(public layoutService: LayoutService, private router: Router) {}
+    constructor(
+        public layoutService: LayoutService,
+        private router: Router,
+        private authService: AuthService
+    ) {}
 
     ngOnInit() {
         this.model = [
@@ -67,6 +72,6 @@ export class AppMenuComponent implements OnInit {
 
     logout() {
         this.router.navigate(['login']);
-        //this.authService.logout();
+        this.authService.logout();
     }
 }

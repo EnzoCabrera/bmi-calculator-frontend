@@ -11,16 +11,16 @@ import { AuthService } from '../services/auth.service';
     providers: [MessageService],
 })
 export class LoginComponent {
-    loginForm = new FormGroup(
-        {
-            email: new FormControl('', [Validators.required, Validators.email]),
-            password: new FormControl('', [
-                Validators.required,
-                Validators.minLength(5),
-            ]),
-        },
-        { updateOn: 'blur' }
-    );
+    loginForm = new FormGroup({
+        email: new FormControl('', {
+            validators: [Validators.required, Validators.email],
+            updateOn: 'blur',
+        }),
+        password: new FormControl('', {
+            validators: [Validators.required, Validators.minLength(5)],
+            updateOn: 'change',
+        }),
+    });
 
     loading: boolean = false;
 
