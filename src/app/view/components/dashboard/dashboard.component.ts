@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { PanelModule } from 'primeng/panel';
 import { CardModule } from 'primeng/card';
 import { ChartModule } from 'primeng/chart';
+import { AssessmentService } from './assessment/services/assessment.service';
+import { Bmi } from './model/bmi';
 
 @Component({
     selector: 'app-dashboard',
@@ -11,77 +13,17 @@ import { ChartModule } from 'primeng/chart';
     styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent implements OnInit {
-    user = {
-        height: '1,75',
-        weight: '72',
-        bmi: '23.51',
-    };
+    user: Bmi;
 
-    data: any;
-    options: any;
+    constructor(private assessmentService: AssessmentService) {}
 
     ngOnInit() {
-        const documentStyle = getComputedStyle(document.documentElement);
-        const textColor = documentStyle.getPropertyValue('--text-color');
-        const textColorSecondary = documentStyle.getPropertyValue(
-            '--text-color-secondary'
-        );
-        const surfaceBorder =
-            documentStyle.getPropertyValue('--surface-border');
+        this.loadUserData();
+    }
 
-        this.data = {
-            labels: [
-                'Jan',
-                'Fev',
-                'Mar',
-                'Abr',
-                'Mai',
-            ],
-            datasets: [
-                {
-                    label: 'Peso',
-                    data: [72, 70, 75, 81, 73],
-                    fill: true,
-                    borderColor: documentStyle.getPropertyValue('--blue-500'),
-                    tension: 0.4,
-                    backgroundColor: 'rgba(59, 131, 246, 0.185)',
-                },
-            ],
-        };
-
-        this.options = {
-            maintainAspectRatio: false,
-            aspectRatio: 0.6,
-            plugins: {
-                legend: {
-                    labels: {
-                        color: textColor,
-                        usePointStyle: true,
-                        pointStyle: 'circle',
-                    },
-                    position: 'bottom',
-                },
-            },
-            scales: {
-                x: {
-                    ticks: {
-                        color: textColorSecondary,
-                    },
-                    grid: {
-                        color: surfaceBorder,
-                        drawBorder: false,
-                    },
-                },
-                y: {
-                    ticks: {
-                        color: textColorSecondary,
-                    },
-                    grid: {
-                        color: surfaceBorder,
-                        drawBorder: false,
-                    },
-                },
-            },
-        };
+    loadUserData() {
+        this.assessmentService.lastBmi().subscribe((response) => {
+            this.user = response;
+        });
     }
 }
