@@ -36,8 +36,6 @@ export class TrainingsComponent implements OnInit {
         this.loading = true;
 
         this.trainingsService.create().subscribe((res) => {
-            console.log(res);
-
             this.trainings = res;
 
             this.loading = false;
@@ -48,7 +46,6 @@ export class TrainingsComponent implements OnInit {
     loadTraninings() {
         this.trainingsService.loadById().subscribe((res) => {
             this.trainings = res;
-            console.log(res);
         });
     }
 }

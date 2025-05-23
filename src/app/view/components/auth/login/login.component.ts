@@ -38,8 +38,6 @@ export class LoginComponent {
 
         this.authService.login(email, password).subscribe({
             next: (response) => {
-                console.log(response);
-
                 this.authService.saveToken(response.access_token);
 
                 this.messageService.add({
