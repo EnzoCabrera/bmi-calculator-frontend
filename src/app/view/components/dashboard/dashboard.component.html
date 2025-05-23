@@ -8,13 +8,17 @@
                     >
 
                     <div class="flex align-items-baseline">
-                        @if (user.height) {
-                            <span class="text-900 font-medium text-xl">
-                                {{ user.height }}
-                            </span>
-                            <span class="text-bluegray-500 font-medium ml-2">m</span>
+                        @if (user?.height) {
+                        <span class="text-900 font-medium text-xl">
+                            {{ user?.height }}
+                        </span>
+                        <span class="text-bluegray-500 font-medium ml-2"
+                            >m</span
+                        >
                         } @else {
-                            <span class="text-bluegray-500 font=medium">Nenhum dado encontrado</span>
+                        <span class="text-bluegray-500 font=medium"
+                            >Nenhum dado encontrado</span
+                        >
                         }
                     </div>
                 </div>
@@ -54,15 +58,17 @@
                     >
 
                     <div class="flex align-items-baseline">
-                        @if (user.weight) {
-                            <span class="text-900 font-medium text-xl">
-                                {{ user.weight }}
-                            </span>
-                            <span class="text-bluegray-500 font-medium ml-2"
-                                >kg</span
-                            >
+                        @if (user?.weight) {
+                        <span class="text-900 font-medium text-xl">
+                            {{ user?.weight }}
+                        </span>
+                        <span class="text-bluegray-500 font-medium ml-2"
+                            >kg</span
+                        >
                         } @else {
-                            <span class="text-bluegray-500 font=medium">Nenhum dado encontrado</span>
+                        <span class="text-bluegray-500 font=medium"
+                            >Nenhum dado encontrado</span
+                        >
                         }
                     </div>
                 </div>
@@ -101,12 +107,14 @@
                     >
 
                     <div class="flex align-items-baseline">
-                        @if (user.bmi_value) {
-                            <span class="text-900 font-medium text-xl">
-                                {{ user.bmi_value }}
-                            </span>
+                        @if (user?.bmi_value) {
+                        <span class="text-900 font-medium text-xl">
+                            {{ user?.bmi_value }}
+                        </span>
                         } @else {
-                            <span class="text-bluegray-500 font=medium">Nenhum dado encontrado</span>
+                        <span class="text-bluegray-500 font=medium"
+                            >Nenhum dado encontrado</span
+                        >
                         }
                     </div>
                 </div>
@@ -134,5 +142,4 @@
             </div>
         </ng-template>
     </p-card>
-
 </div>

@@ -24,6 +24,8 @@ export class DashboardComponent implements OnInit {
     loadUserData() {
         this.assessmentService.lastBmi().subscribe((response) => {
             this.user = response;
+
+            console.log(response);
         });
     }
 }

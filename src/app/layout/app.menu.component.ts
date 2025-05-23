@@ -39,10 +39,20 @@ export class AppMenuComponent implements OnInit {
                         routerLink: ['/dashboard'],
                     },
                     {
-                        label: 'Minha avaliação',
-                        icon: 'pi pi-plus',
+                        label: 'Avaliação física',
+                        icon: 'my my-assessment',
                         routerLink: ['dashboard/avaliacao'],
                     },
+                    {
+                        label: 'Treino',
+                        icon: 'my my-gym',
+                        routerLink:['dashboard/treino']
+                    },
+                    {
+                        label: 'Dieta',
+                        icon: 'my my-food',
+                        routerLink:['dashboard/dieta']
+                    }
                 ],
             },
         ];
@@ -50,13 +60,13 @@ export class AppMenuComponent implements OnInit {
         this.bottomModel = [
             {
                 items: [
-                    {
+                  /*   {
                         label: 'Deletar conta',
                         icon: 'pi pi-user-minus',
                         command: () => {
-                            //this.confirmarDelecaoConta();
+                            this.confirmarDelecaoConta();
                         },
-                    },
+                    }, */
                     {
                         label: 'Sair',
                         icon: 'pi pi-sign-out',

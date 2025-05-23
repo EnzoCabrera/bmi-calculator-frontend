@@ -1,0 +1,39 @@
+@if(loading) {
+<p-progressSpinner
+    styleClass="w-4rem h-4rem z-5"
+    style="
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: 5;
+        transform: translate(-50%, -50%);
+    "
+    strokeWidth="4"
+    animationDuration=".5s"
+/>
+}
+
+<p-toast position="bottom-center" />
+
+@if (trainings !== null) {
+<p-card header="Treinos">
+
+
+    <div class="flex flex-wrap justify-content-centerrow-gap-8">
+        @for (exercice of exercices; track $index) {
+        <app-trainings-card></app-trainings-card>
+        }
+        <app-trainings-card></app-trainings-card>
+    </div>
+</p-card>
+} @else {
+<p-card header="Treinos">
+    <div class="flex flex-column justify-content-center align-items-center">
+        <p class="mb-3">
+            Ops! Parece que você ainda não tem um treino. Para gerar clique no
+            botão abaixo.
+        </p>
+        <p-button label="Gerar treino" (click)="createTraning()"></p-button>
+    </div>
+</p-card>
+}
