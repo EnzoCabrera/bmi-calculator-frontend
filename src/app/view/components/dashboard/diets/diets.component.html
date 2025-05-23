@@ -15,11 +15,11 @@
 
 <p-toast position="bottom-center" />
 
-@if (trainings !== null) {
-<p-card header="Treinos">
+@if (diets !== null) {
+<p-card header="Dietas">
     <div class="flex flex-column justify-content-center align-items-center">
         <p class="mb-3">
-            Aguarde um pouco. Estamos trabalhando para exibir seus treinos aqui.
+            Aguarde um pouco. Estamos trabalhando para exibir suas dietas aqui.
         </p>
     </div>
 
@@ -31,13 +31,13 @@
     </div> -->
 </p-card>
 } @else {
-<p-card header="Treinos">
+<p-card header="Dietas">
     <div class="flex flex-column justify-content-center align-items-center">
         <p class="mb-3">
-            Ops! Parece que você ainda não tem um treino. Para gerar clique no
+            Ops! Parece que você ainda não tem uma dieta. Para gerar clique no
             botão abaixo.
         </p>
-        <p-button label="Gerar treino" (click)="createTraning()"></p-button>
+        <p-button label="Gerar dieta"></p-button>
     </div>
 </p-card>
 }
