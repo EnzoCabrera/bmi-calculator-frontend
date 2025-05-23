@@ -1,0 +1,30 @@
+@font-face {
+    font-family: 'my-font';
+    font-display: block;
+    src: url('../../../config/icomoon.ttf')  format('embedded-opentype'), url('../../../config/icomoon.woff') format('woff'), url('../../../config/icomoon.svg') format('svg'), url('../../../config/icomoon.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.my {
+    font-family: 'my-font';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    display: inline-block;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.my-food::before {
+    content: "\e900";
+}
+.my-gym::before {
+    content: "\e902";
+}
+.my-assessment::before {
+    content: "\e901";
+}
