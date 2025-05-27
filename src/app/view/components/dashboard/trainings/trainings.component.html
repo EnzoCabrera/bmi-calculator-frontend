@@ -1,37 +1,81 @@
-@if(loading) {
-<p-progressSpinner
-    styleClass="w-4rem h-4rem z-5"
-    style="
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        z-index: 5;
-        transform: translate(-50%, -50%);
-    "
-    strokeWidth="4"
-    animationDuration=".5s"
-/>
-}
-
 <p-toast position="bottom-center" />
 
-@if (trainings !== null) {
-<p-card header="Treinos">
-    <div class="flex flex-column justify-content-center align-items-center">
-        <p class="mb-3">
-            Aguarde um pouco. Estamos trabalhando para exibir seus treinos aqui.
-        </p>
+@if(loading) {
+<p-card header="Treino">
+
+    <div class="grid">
+        <p-skeleton class="lg:col-4 md:col-6 col-12" height="2rem" styleClass="mb-2" />
+
+        <p-skeleton
+            class="lg:col-4 md:col-6 col-12"
+            width="100%"
+            height="131px"
+        />
+        <p-skeleton
+            class="lg:col-4 md:col-6 col-12"
+            width="100%"
+            height="131px"
+        />
+        <p-skeleton
+            class="lg:col-4 md:col-6 col-12"
+            width="100%"
+            height="131px"
+        />
+        <p-skeleton
+            class="lg:col-4 md:col-6 col-12"
+            width="100%"
+            height="131px"
+        />
+        <p-skeleton
+            class="lg:col-4 md:col-6 col-12"
+            width="100%"
+            height="131px"
+        />
+    </div>
+</p-card>
+} @else { @if (trainings !== null) {
+<p-card header="Treino de {{ selectedDay | lowercase }}">
+
+    <div class="grid">
+        <p-dropdown
+            [options]="daysOfWeek"
+            [(ngModel)]="selectedDay"
+            (onChange)="updateSelectedTraining($event.value)"
+            placeholder="Selecione um dia"
+            class="lg:col-4 md:col-6 col-12"
+        />
     </div>
 
-    <!-- <div class="flex flex-wrap justify-content-centerrow-gap-8">
-        @for (exercice of exercices; track $index) {
-        <app-trainings-card></app-trainings-card>
+    @if(selectedDay === 'Sábado' || selectedDay === 'Domingo') {
+
+    <p-messages severity="info">
+        <ng-template pTemplate>
+            Você não tem um treino programado para hoje. Aproveite para
+            descansar!"
+        </ng-template>
+    </p-messages>
+
+    } @else if (selectedTrainings) {
+    <div class="grid">
+        @for (ex of selectedTrainings.exercises; track ex.exercicio; let idx =
+        $index) {
+        <app-trainings-card
+            class="lg:col-4 md:col-6 col-12"
+            [exercice]="ex"
+            [index]="idx"
+        />
         }
-        <app-trainings-card></app-trainings-card>
-    </div> -->
+    </div>
+    } @else {
+        <p-messages severity="error">
+        <ng-template pTemplate>
+            Erro ao carregar treino.
+        </ng-template>
+    </p-messages>
+    }
 </p-card>
 } @else {
-<p-card header="Treinos">
+<p-card header="Treino">
     <div class="flex flex-column justify-content-center align-items-center">
         <p class="mb-3">
             Ops! Parece que você ainda não tem um treino. Para gerar clique no
@@ -40,4 +84,4 @@
         <p-button label="Gerar treino" (click)="createTraning()"></p-button>
     </div>
 </p-card>
-}
+} }

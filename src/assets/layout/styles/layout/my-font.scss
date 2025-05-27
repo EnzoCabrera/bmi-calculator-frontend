@@ -22,9 +22,12 @@
 .my-food::before {
     content: "\e900";
 }
+.my-assessment::before {
+    content: "\e901";
+}
 .my-gym::before {
     content: "\e902";
 }
-.my-assessment::before {
-    content: "\e901";
+.my-clock::before {
+    content: "\e903";
 }

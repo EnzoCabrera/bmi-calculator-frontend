@@ -6,6 +6,8 @@ import {
     ReactiveFormsModule,
     Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
@@ -13,10 +15,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { StepperModule } from 'primeng/stepper';
-import { AssessmentService } from './services/assessment.service';
-import { MessageService } from 'primeng/api';
-import { Router } from '@angular/router';
 import { ToastModule } from 'primeng/toast';
+import { AssessmentService } from './services/assessment.service';
 
 @Component({
     selector: 'app-assessment',
@@ -41,8 +41,8 @@ export class AssessmentComponent implements OnInit {
     active: number | undefined = 0;
 
     assessmentForm = new FormGroup({
-        weight: new FormControl('', [Validators.required]),
-        height: new FormControl('', [Validators.required]),
+        weight: new FormControl('', [Validators.required, Validators.min(1)]),
+        height: new FormControl('', [Validators.required, Validators.min(1)]),
     });
 
     loading: boolean = false;
@@ -84,6 +84,14 @@ export class AssessmentComponent implements OnInit {
 
     getErrorMessage(fieldName: string) {
         const field = this.assessmentForm.get(fieldName);
+
+        if (field.hasError('min')) {
+            if (fieldName === 'height') {
+                return 'A altura deve ser maior que 0';
+            }
+
+            return 'O peso deve ser maior que 0';
+        }
 
         if (field?.hasError('required')) {
             return 'Campo obrigatório';

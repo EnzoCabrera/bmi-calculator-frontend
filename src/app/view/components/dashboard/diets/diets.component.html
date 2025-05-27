@@ -1,16 +1,7 @@
 @if(loading) {
-<p-progressSpinner
-    styleClass="w-4rem h-4rem z-5"
-    style="
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        z-index: 5;
-        transform: translate(-50%, -50%);
-    "
-    strokeWidth="4"
-    animationDuration=".5s"
-/>
+<p-card header="Treinos">
+    <p-skeleton height="2rem" styleClass="mb-2" />
+</p-card>
 }
 
 <p-toast position="bottom-center" />
