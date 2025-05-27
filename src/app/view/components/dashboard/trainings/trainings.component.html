@@ -2,10 +2,12 @@
 
 @if(loading) {
 <p-card header="Treino">
-
+    <p-skeleton
+        class="lg:col-4 md:col-6 col-12"
+        height="2rem"
+        styleClass="mb-2"
+    />
     <div class="grid">
-        <p-skeleton class="lg:col-4 md:col-6 col-12" height="2rem" styleClass="mb-2" />
-
         <p-skeleton
             class="lg:col-4 md:col-6 col-12"
             width="100%"
@@ -35,7 +37,6 @@
 </p-card>
 } @else { @if (trainings !== null) {
 <p-card header="Treino de {{ selectedDay | lowercase }}">
-
     <div class="grid">
         <p-dropdown
             [options]="daysOfWeek"
@@ -51,7 +52,7 @@
     <p-messages severity="info">
         <ng-template pTemplate>
             Você não tem um treino programado para hoje. Aproveite para
-            descansar!"
+            descansar!
         </ng-template>
     </p-messages>
 
@@ -67,10 +68,8 @@
         }
     </div>
     } @else {
-        <p-messages severity="error">
-        <ng-template pTemplate>
-            Erro ao carregar treino.
-        </ng-template>
+    <p-messages severity="error">
+        <ng-template pTemplate> Erro ao carregar treino. </ng-template>
     </p-messages>
     }
 </p-card>

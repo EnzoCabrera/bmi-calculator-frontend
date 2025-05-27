@@ -15,99 +15,108 @@
 
 <p-toast position="bottom-center" />
 
-<form [formGroup]="assessmentForm" (ngSubmit)="calculateBmi()">
-    <p-stepper [(activeStep)]="active" [linear]="true">
-        <p-stepperPanel>
-            <ng-template
-                pTemplate="content"
-                let-nextCallback="nextCallback"
-                let-index="index"
-            >
-                <h3 class="text-2xl text-color font-semibold">
-                    Qual o seu peso?
-                </h3>
+<p-card header="Avaliação física">
+    <form [formGroup]="assessmentForm" (ngSubmit)="calculateBmi()">
+        <p-stepper [(activeStep)]="active" [linear]="true">
+            <p-stepperPanel>
+                <ng-template
+                    pTemplate="content"
+                    let-nextCallback="nextCallback"
+                    let-index="index"
+                >
+                    <div class="field mb-4">
+                        <label
+                            for="weight"
+                            class="block text-900 text-xl font-medium mb-2"
+                            >Peso</label
+                        >
+                        <p-inputGroup>
+                            <input
+                                pInputText
+                                pKeyFilter="num"
+                                class="w-full"
+                                placeholder="Seu peso"
+                                formControlName="weight"
+                                id="weight"
+                            />
+                            <p-inputGroupAddon> kg </p-inputGroupAddon>
+                        </p-inputGroup>
+                    </div>
 
-                <p-inputGroup>
-                    <input
-                        pInputText
-                        pKeyFilter="num"
-                        class="w-full"
-                        placeholder="Seu peso"
-                        formControlName="weight"
-                    />
-                    <p-inputGroupAddon> kg </p-inputGroupAddon>
-                </p-inputGroup>
+                    @if (assessmentForm.get('weight').invalid &&
+                    (assessmentForm.get('weight').dirty ||
+                    assessmentForm.get('weight').touched) ) {
+                    <small class="text-red-500 mt-2 block" id="weight-error">{{
+                        getErrorMessage("weight")
+                    }}</small>
+                    }
 
-                @if (assessmentForm.get('weight').invalid &&
-                (assessmentForm.get('weight').dirty ||
-                assessmentForm.get('weight').touched) ) {
-                <small class="text-red-500 mt-2 block" id="weight-error">{{
-                    getErrorMessage("weight")
-                }}</small>
-                }
+                    <div class="flex pt-4 justify-content-end">
+                        <p-button
+                            label="Avançar"
+                            icon="pi pi-arrow-right"
+                            iconPos="right"
+                            [disabled]="
+                                this.assessmentForm.get('weight').value == ''
+                            "
+                            (onClick)="nextCallback.emit()"
+                        />
+                    </div>
+                </ng-template>
+            </p-stepperPanel>
 
-                <div class="flex pt-4 justify-content-end">
-                    <p-button
-                        label="Avançar"
-                        icon="pi pi-arrow-right"
-                        iconPos="right"
-                        [disabled]="
-                            this.assessmentForm.get('weight').value == ''
-                        "
-                        (onClick)="nextCallback.emit()"
-                    />
-                </div>
-            </ng-template>
-        </p-stepperPanel>
+            <p-stepperPanel>
+                <ng-template
+                    pTemplate="content"
+                    let-prevCallback="prevCallback"
+                    let-nextCallback="nextCallback"
+                    let-index="index"
+                >
+                    <div class="field mb-4">
+                        <label
+                            for="height"
+                            class="block text-900 text-xl font-medium mb-2"
+                            >Altura</label
+                        >
+                        <p-inputGroup>
+                            <input
+                                pInputText
+                                pKeyFilter="int"
+                                class="w-full"
+                                placeholder="Sua altura"
+                                formControlName="height"
+                            />
+                            <p-inputGroupAddon> cm </p-inputGroupAddon>
+                        </p-inputGroup>
+                    </div>
 
-        <p-stepperPanel>
-            <ng-template
-                pTemplate="content"
-                let-prevCallback="prevCallback"
-                let-nextCallback="nextCallback"
-                let-index="index"
-            >
-                <h3 class="text-2xl text-color font-semibold">
-                    Qual a sua altura?
-                </h3>
+                    @if (assessmentForm.get('height').invalid &&
+                    (assessmentForm.get('height').dirty ||
+                    assessmentForm.get('height').touched) ) {
+                    <small class="text-red-500 mt-2 block" id="height-error">{{
+                        getErrorMessage("height")
+                    }}</small>
+                    }
+                    <div class="flex pt-4 justify-content-between">
+                        <p-button
+                            label="Voltar"
+                            icon="pi pi-arrow-left"
+                            severity="secondary"
+                            (onClick)="prevCallback.emit()"
+                        />
 
-                <p-inputGroup>
-                    <input
-                        pInputText
-                        pKeyFilter="num"
-                        class="w-full"
-                        placeholder="Sua altura"
-                        formControlName="height"
-                    />
-                    <p-inputGroupAddon> cm </p-inputGroupAddon>
-                </p-inputGroup>
-
-                @if (assessmentForm.get('height').invalid &&
-                (assessmentForm.get('height').dirty ||
-                assessmentForm.get('height').touched) ) {
-                <small class="text-red-500 mt-2 block" id="height-error">{{
-                    getErrorMessage("height")
-                }}</small>
-                }
-                <div class="flex pt-4 justify-content-between">
-                    <p-button
-                        label="Voltar"
-                        icon="pi pi-arrow-left"
-                        severity="secondary"
-                        (onClick)="prevCallback.emit()"
-                    />
-
-                    <button
-                        pButton
-                        pRipple
-                        label="Concluir"
-                        [disabled]="
-                            this.assessmentForm.get('height').value == ''
-                        "
-                        type="submit"
-                    ></button>
-                </div>
-            </ng-template>
-        </p-stepperPanel>
-    </p-stepper>
-</form>
+                        <button
+                            pButton
+                            pRipple
+                            label="Concluir"
+                            [disabled]="
+                                this.assessmentForm.get('height').value == ''
+                            "
+                            type="submit"
+                        ></button>
+                    </div>
+                </ng-template>
+            </p-stepperPanel>
+        </p-stepper>
+    </form>
+</p-card>

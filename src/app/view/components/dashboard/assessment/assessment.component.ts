@@ -17,6 +17,8 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { StepperModule } from 'primeng/stepper';
 import { ToastModule } from 'primeng/toast';
 import { AssessmentService } from './services/assessment.service';
+import { CardModule } from 'primeng/card';
+import { Bmi } from '../model/bmi';
 
 @Component({
     selector: 'app-assessment',
@@ -25,6 +27,7 @@ import { AssessmentService } from './services/assessment.service';
         FormsModule,
         ReactiveFormsModule,
         ButtonModule,
+        CardModule,
         InputGroupModule,
         InputGroupAddonModule,
         InputTextModule,
@@ -38,6 +41,7 @@ import { AssessmentService } from './services/assessment.service';
     providers: [MessageService],
 })
 export class AssessmentComponent implements OnInit {
+    bmi: Bmi;
     active: number | undefined = 0;
 
     assessmentForm = new FormGroup({
@@ -53,7 +57,9 @@ export class AssessmentComponent implements OnInit {
         private router: Router
     ) {}
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.loadBmi()
+    }
 
     calculateBmi() {
         const height = parseFloat(this.assessmentForm.get('height').value);
@@ -73,13 +79,23 @@ export class AssessmentComponent implements OnInit {
             error: (error) => {
                 this.messageService.add({
                     severity: 'error',
-                    detail: 'Dados inválidos.',
+                    detail: 'Erro ao calcular IMC.',
                 });
 
                 this.loading = false;
             },
         });
         console.log(this.assessmentForm.value);
+    }
+
+    loadBmi() {
+        this.assessmentService.lastBmi().subscribe({next: res => {
+            this.bmi = res;
+            console.log(this.bmi);
+        },
+    error: () => {
+        this.messageService.add({severity: 'error', detail: 'Erro ao carregar IMC.'})
+    }})
     }
 
     getErrorMessage(fieldName: string) {
