@@ -14,9 +14,7 @@ import { matchPasswordValidator } from '../validators/matchpassword.validator';
 export class SignupComponent {
     signupForm = new FormGroup(
         {
-            fullName: new FormControl('', [
-                Validators.required,
-            ]),
+            fullName: new FormControl('', [Validators.required]),
             email: new FormControl('', [Validators.required, Validators.email]),
             password: new FormControl('', [
                 Validators.required,
@@ -65,13 +63,15 @@ export class SignupComponent {
             error: (error) => {
                 console.log(error);
 
+                this.messageService.clear();
+
                 this.messageService.add({
                     severity: 'error',
                     detail: 'Erro ao criar o usuário!',
                 });
 
                 this.loading = false;
-            }
+            },
         });
     }
 

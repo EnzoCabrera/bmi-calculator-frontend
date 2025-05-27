@@ -52,6 +52,8 @@ export class LoginComponent {
             error: (error) => {
                 console.log(error);
 
+                this.messageService.clear()
+
                 this.messageService.add({
                     severity: 'error',
                     detail: 'Usuário ou senha inválidos.',
