@@ -47,15 +47,26 @@ export class DashboardComponent implements OnInit {
                 this.loading = false;
             },
             error: (e) => {
+                this.loading = false;
+
                 if (e.status === 401) {
                     this.messageService.add({
                         severity: 'error',
                         detail: 'Tempo de sessão expirado. Entre novamente!',
                     });
 
-                    localStorage.removeItem('token');
+                    setTimeout(() => {
+                        localStorage.removeItem('token');
 
-                    this.router.navigate(['./login']);
+                        this.router.navigate(['./login']);
+                    }, 3100);
+                }
+
+                if (e.status === 404) {
+                    this.messageService.add({
+                        severity: 'info',
+                        detail: 'Você ainda não realizou sua avaliação física.',
+                    });
                 }
             },
         });
