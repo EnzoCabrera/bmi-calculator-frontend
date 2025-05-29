@@ -9,16 +9,17 @@ import {
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { SkeletonModule } from 'primeng/skeleton';
 import { StepperModule } from 'primeng/stepper';
 import { ToastModule } from 'primeng/toast';
-import { AssessmentService } from './services/assessment.service';
-import { CardModule } from 'primeng/card';
 import { Bmi } from '../model/bmi';
+import { AssessmentService } from './services/assessment.service';
 
 @Component({
     selector: 'app-assessment',
@@ -32,8 +33,9 @@ import { Bmi } from '../model/bmi';
         InputGroupAddonModule,
         InputTextModule,
         KeyFilterModule,
-        StepperModule,
         SelectButtonModule,
+        StepperModule,
+        SkeletonModule,
         ToastModule,
     ],
     templateUrl: './assessment.component.html',
@@ -58,7 +60,7 @@ export class AssessmentComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.loadBmi()
+        this.loadBmi();
     }
 
     calculateBmi() {
@@ -66,7 +68,7 @@ export class AssessmentComponent implements OnInit {
         const weight = parseFloat(this.assessmentForm.get('weight').value);
 
         this.assessmentService.create(height, weight).subscribe({
-            next: (response) => {
+            next: (res) => {
                 this.messageService.add({
                     severity: 'success',
                     detail: 'IMC calculado com sucesso!',
@@ -76,7 +78,7 @@ export class AssessmentComponent implements OnInit {
 
                 this.router.navigate(['/dashboard']);
             },
-            error: (error) => {
+            error: (e) => {
                 this.messageService.add({
                     severity: 'error',
                     detail: 'Erro ao calcular IMC.',
@@ -89,13 +91,38 @@ export class AssessmentComponent implements OnInit {
     }
 
     loadBmi() {
-        this.assessmentService.lastBmi().subscribe({next: res => {
-            this.bmi = res;
-            console.log(this.bmi);
-        },
-    error: () => {
-        this.messageService.add({severity: 'error', detail: 'Erro ao carregar IMC.'})
-    }})
+        this.loading = true;
+
+        this.assessmentService.lastBmi().subscribe({
+            next: (res) => {
+                this.bmi = res;
+                console.log(this.bmi);
+                this.loading = false;
+            },
+            error: (e) => {
+                this.loading = false;
+
+                if (e.status === 401) {
+                    this.messageService.add({
+                        severity: 'error',
+                        detail: 'Tempo de sessão expirado. Entre novamente!',
+                    });
+
+                    setTimeout(() => {
+                        localStorage.removeItem('token');
+
+                        this.router.navigate(['./login']);
+                    }, 3100);
+                }
+
+                if (e.status === 404) {
+                    this.messageService.add({
+                        severity: 'info',
+                        detail: 'Digite seus dados.',
+                    });
+                }
+            },
+        });
     }
 
     getErrorMessage(fieldName: string) {
@@ -114,5 +141,19 @@ export class AssessmentComponent implements OnInit {
         }
 
         return 'Campo inválido';
+    }
+
+    newAssessment() {
+        this.loading = true;
+
+        this.messageService.add({
+            severity: 'info',
+            detail: 'Digite seus dados novamente.',
+        });
+
+        setInterval(() => {
+            this.bmi = undefined;
+            this.loading = false;
+        }, 3100);
     }
 }
