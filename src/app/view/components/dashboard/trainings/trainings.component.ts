@@ -32,7 +32,7 @@ import { LowerCasePipe } from '@angular/common';
     providers: [MessageService],
 })
 export class TrainingsComponent implements OnInit {
-    trainings: any[] = [];
+    trainings: any[];
     selectedTrainings: any;
     selectedDay: string;
     daysOfWeek = [
@@ -86,7 +86,6 @@ export class TrainingsComponent implements OnInit {
 
         this.trainingsService.loadById().subscribe({
             next: (res) => {
-                console.log(res);
                 this.trainings = res.parsed_description;
 
                 const today = this.getCurrentDay();

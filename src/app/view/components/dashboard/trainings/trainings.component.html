@@ -35,7 +35,18 @@
         />
     </div>
 </p-card>
-} @else { @if (trainings !== null) {
+} @else { @if (trainings === undefined) {
+<p-card header="Treino">
+    <div class="flex flex-column justify-content-center align-items-center">
+        <p class="mb-3">
+            Ops! Parece que você ainda não tem um treino. Para gerar clique no
+            botão abaixo.
+        </p>
+        <p-button label="Gerar treino" (click)="createTraning()"></p-button>
+    </div>
+</p-card>
+
+} @else {
 <p-card header="Treino de {{ selectedDay | lowercase }}">
     <div class="grid">
         <p-dropdown
@@ -73,14 +84,5 @@
     </p-messages>
     }
 </p-card>
-} @else {
-<p-card header="Treino">
-    <div class="flex flex-column justify-content-center align-items-center">
-        <p class="mb-3">
-            Ops! Parece que você ainda não tem um treino. Para gerar clique no
-            botão abaixo.
-        </p>
-        <p-button label="Gerar treino" (click)="createTraning()"></p-button>
-    </div>
-</p-card>
+
 } }

@@ -87,7 +87,6 @@ export class AssessmentComponent implements OnInit {
                 this.loading = false;
             },
         });
-        console.log(this.assessmentForm.value);
     }
 
     loadBmi() {
@@ -96,7 +95,6 @@ export class AssessmentComponent implements OnInit {
         this.assessmentService.lastBmi().subscribe({
             next: (res) => {
                 this.bmi = res;
-                console.log(this.bmi);
                 this.loading = false;
             },
             error: (e) => {
