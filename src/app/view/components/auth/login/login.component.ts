@@ -38,7 +38,7 @@ export class LoginComponent {
 
         this.authService.login(email, password).subscribe({
             next: (response) => {
-                this.authService.saveToken(response.access_token);
+                this.authService.saveUserInfo(response);
 
                 this.messageService.add({
                     severity: 'success',
@@ -50,9 +50,7 @@ export class LoginComponent {
                 this.router.navigate(['/dashboard']);
             },
             error: (error) => {
-                console.log(error);
-
-                this.messageService.clear()
+                this.messageService.clear();
 
                 this.messageService.add({
                     severity: 'error',

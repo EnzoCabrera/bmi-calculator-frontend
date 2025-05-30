@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
+import { User } from '../models/user';
 
 @Injectable({
     providedIn: 'root',
@@ -32,7 +33,15 @@ export class AuthService {
         return localStorage.getItem('token');
     }
 
+    saveUserInfo(res: User) {
+        localStorage.setItem('token', res.access_token);
+        localStorage.setItem('email', res.email);
+        localStorage.setItem('name', res.name);
+    }
+
     logout(): void {
         localStorage.removeItem('token');
+        localStorage.removeItem('email');
+        localStorage.removeItem('name');
     }
 }

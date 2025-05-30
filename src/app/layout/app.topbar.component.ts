@@ -4,6 +4,7 @@ import { MenuItem } from 'primeng/api';
 import { LayoutService } from './service/app.layout.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../view/components/auth/services/auth.service';
+import { User } from '../view/components/auth/models/user';
 
 @Component({
     selector: 'app-topbar',
@@ -26,6 +27,9 @@ export class AppTopBarComponent {
 
     items!: MenuItem[];
 
+    userEmail: string;
+    userName: string;
+
     @ViewChild('menubutton') menuButton!: ElementRef;
 
     @ViewChild('topbarmenubutton') topbarMenuButton!: ElementRef;
@@ -36,7 +40,10 @@ export class AppTopBarComponent {
         public layoutService: LayoutService,
         private router: Router,
         private authService: AuthService
-    ) {}
+    ) {
+        this.userEmail = localStorage.getItem('email');
+        this.userName = localStorage.getItem('name');
+    }
 
     logout() {
         this.router.navigate(['login']);
