@@ -94,12 +94,14 @@ export class TrainingsComponent implements OnInit {
                 this.updateSelectedTraining(today);
 
                 this.loading = false;
+
+                console.log(this.trainings);
             },
             error: () => {
                 this.messageService.add({
                     severity: 'error',
                     summary: 'Erro',
-                    detail: 'Erro ao carregar treino',
+                    detail: 'Erro ao carregar treino.',
                 });
 
                 this.loading = false;

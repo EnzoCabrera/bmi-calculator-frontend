@@ -1,34 +1,83 @@
-@if(loading) {
-<p-card header="Treinos">
-    <p-skeleton height="2rem" styleClass="mb-2" />
-</p-card>
-}
-
 <p-toast position="bottom-center" />
 
-@if (diets !== null) {
-<p-card header="Dietas">
+@if(loading) {
+<p-card header="Dieta">
+    <p-skeleton
+        class="lg:col-4 md:col-6 col-12"
+        height="2rem"
+        styleClass="mb-2"
+    />
+    <div class="grid">
+        <p-skeleton
+            class="lg:col-4 md:col-6 col-12"
+            width="100%"
+            height="131px"
+        />
+        <p-skeleton
+            class="lg:col-4 md:col-6 col-12"
+            width="100%"
+            height="131px"
+        />
+        <p-skeleton
+            class="lg:col-4 md:col-6 col-12"
+            width="100%"
+            height="131px"
+        />
+        <p-skeleton
+            class="lg:col-4 md:col-6 col-12"
+            width="100%"
+            height="131px"
+        />
+        <p-skeleton
+            class="lg:col-4 md:col-6 col-12"
+            width="100%"
+            height="131px"
+        />
+    </div>
+</p-card>
+} @else { @if(diets === undefined) {
+<p-card header="Dieta">
+    <p class="mb-3">
+        Ops! Parece que você ainda não tem uma dieta. Para gerar clique no botão
+        abaixo.
+    </p>
+
     <div class="flex flex-column justify-content-center align-items-center">
-        <p class="mb-3">
-            Aguarde um pouco. Estamos trabalhando para exibir suas dietas aqui.
-        </p>
+        <div class="field mb-4 w-full">
+            <label for="weight" class="block text-900 text-xl font-medium mb-2"
+                >Intolerância alimentar</label
+            >
+            <p-chips [(ngModel)]="intolerances" styleClass="block" />
+        </div>
+
+        <p-button label="Gerar dieta" (click)="createDiet()"></p-button>
+    </div>
+</p-card>
+
+} @else {
+<p-card header="Dieta de {{ selectedDay | lowercase }}">
+    <div class="grid">
+        <p-dropdown
+            [options]="daysOfWeek"
+            [(ngModel)]="selectedDay"
+            (onChange)="updateSelectedDiets($event.value)"
+            placeholder="Selecione um dia"
+            class="lg:col-4 md:col-6 col-12"
+        />
     </div>
 
-    <!-- <div class="flex flex-wrap justify-content-centerrow-gap-8">
-        @for (exercice of exercices; track $index) {
-        <app-trainings-card></app-trainings-card>
+    @if(selectedDay === 'Sábado' || selectedDay === 'Domingo') {
+    <p-messages severity="info">
+        <ng-template pTemplate>
+            Você não tem um dieta programada para hoje.
+        </ng-template>
+    </p-messages>
+    } @else if (selectedDiets) {
+    <div class="grid">
+        @for(d of selectedDiets.meals; track d.meal) {
+        <app-diets-card class="lg:col-4 md:col-6 col-12" [meals]="d" />
         }
-        <app-trainings-card></app-trainings-card>
-    </div> -->
-</p-card>
-} @else {
-<p-card header="Dietas">
-    <div class="flex flex-column justify-content-center align-items-center">
-        <p class="mb-3">
-            Ops! Parece que você ainda não tem uma dieta. Para gerar clique no
-            botão abaixo.
-        </p>
-        <p-button label="Gerar dieta"></p-button>
     </div>
+    }
 </p-card>
-}
+} }

@@ -67,6 +67,11 @@ export class DashboardComponent implements OnInit {
                         severity: 'info',
                         detail: 'Você ainda não realizou sua avaliação física.',
                     });
+
+                    setTimeout(() => {
+
+                        this.router.navigate(['./dashboard/avaliacao-fisica']);
+                    }, 3100);
                 }
             },
         });
