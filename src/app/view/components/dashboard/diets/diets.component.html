@@ -75,7 +75,7 @@
     } @else if (selectedDiets) {
     <div class="grid">
         @for(d of selectedDiets.meals; track d.meal) {
-        <app-diets-card class="lg:col-4 md:col-6 col-12" [meals]="d" />
+        <app-diets-card class="lg:col-6 md:col-6 col-12" [meals]="d" />
         }
     </div>
     }

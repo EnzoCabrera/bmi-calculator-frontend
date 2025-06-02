@@ -1,35 +1,37 @@
-import { TrainingsCardComponent } from './trainings-card/trainings-card.component';
-import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { LowerCasePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
-import { TrainingsService } from './services/trainings.service';
-import { ToastModule } from 'primeng/toast';
-import { SkeletonModule } from 'primeng/skeleton';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DropdownModule } from 'primeng/dropdown';
-import { MessageService } from 'primeng/api';
 import { MessagesModule } from 'primeng/messages';
-import { FormsModule } from '@angular/forms';
-import { LowerCasePipe } from '@angular/common';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { SkeletonModule } from 'primeng/skeleton';
+import { ToastModule } from 'primeng/toast';
+import { TrainingsService } from './services/trainings.service';
+import { TrainingsCardComponent } from './trainings-card/trainings-card.component';
 
 @Component({
     selector: 'app-trainings',
     standalone: true,
     imports: [
-        TrainingsCardComponent,
+        LowerCasePipe,
+        FormsModule,
         ButtonModule,
         CardModule,
+        ConfirmDialogModule,
         DropdownModule,
         MessagesModule,
         ProgressSpinnerModule,
         SkeletonModule,
         ToastModule,
-        FormsModule,
-        LowerCasePipe,
+        TrainingsCardComponent,
     ],
     templateUrl: './trainings.component.html',
     styleUrl: './trainings.component.scss',
-    providers: [MessageService],
+    providers: [ConfirmationService, MessageService],
 })
 export class TrainingsComponent implements OnInit {
     trainings: any[];
@@ -48,7 +50,8 @@ export class TrainingsComponent implements OnInit {
 
     constructor(
         private trainingsService: TrainingsService,
-        private messageService: MessageService
+        private messageService: MessageService,
+        private confirmationService: ConfirmationService
     ) {}
 
     ngOnInit() {
@@ -105,6 +108,27 @@ export class TrainingsComponent implements OnInit {
                 });
 
                 this.loading = false;
+            },
+        });
+    }
+
+    recreateTrainings(event: Event) {
+        this.confirmationService.confirm({
+            target: event.target as EventTarget,
+            message:
+                'Você já tem um treino. Tem certeza que deseja gerar outro?',
+            header: 'Refazer treino',
+            acceptIcon: 'none',
+            acceptLabel: 'Sim',
+            rejectIcon: 'none',
+            rejectLabel: 'Não',
+            rejectButtonStyleClass: 'p-button-text',
+            accept: () => {
+                this.createTraning();
+                this.loadTraninings();
+            },
+            reject: () => {
+                this.loadTraninings();
             },
         });
     }

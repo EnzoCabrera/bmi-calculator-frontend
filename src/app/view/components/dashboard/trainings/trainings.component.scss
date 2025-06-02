@@ -1,3 +1,17 @@
-::ng-deep .p-dropdown {
-    width: 100%;
+:host {
+    ::ng-deep {
+        .p-dropdown {
+            width: 100%;
+        }
+
+        .recreateButton {
+            button {
+                width: 100% !important;
+            }
+        }
+
+        .p-dialog {
+            margin: 20px;
+        }
+    }
 }
