@@ -65,6 +65,11 @@ export class TrainingsComponent implements OnInit {
             next: (res) => {
                 this.trainings = res.parsed_description;
 
+                const today = this.getCurrentDay();
+                this.selectedDay = today;
+
+                this.updateSelectedTraining(today);
+
                 this.messageService.add({
                     severity: 'success',
                     detail: 'Treino criado com sucesso!',
@@ -81,7 +86,7 @@ export class TrainingsComponent implements OnInit {
             },
         });
 
-        this.loadTraninings();
+        //this.loadTraninings();
     }
 
     loadTraninings() {
@@ -97,8 +102,6 @@ export class TrainingsComponent implements OnInit {
                 this.updateSelectedTraining(today);
 
                 this.loading = false;
-
-                console.log(this.trainings);
             },
             error: () => {
                 this.messageService.add({
@@ -125,11 +128,8 @@ export class TrainingsComponent implements OnInit {
             rejectButtonStyleClass: 'p-button-text',
             accept: () => {
                 this.createTraning();
-                this.loadTraninings();
             },
-            reject: () => {
-                this.loadTraninings();
-            },
+            reject: () => {},
         });
     }
 
