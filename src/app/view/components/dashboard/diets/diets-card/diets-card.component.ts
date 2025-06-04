@@ -1,5 +1,5 @@
 import { LowerCasePipe } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { ImageModule } from 'primeng/image';
 import { TagModule } from 'primeng/tag';
 
@@ -10,15 +10,13 @@ import { TagModule } from 'primeng/tag';
     templateUrl: './diets-card.component.html',
     styleUrl: './diets-card.component.scss',
 })
-export class DietsCardComponent implements OnInit {
+export class DietsCardComponent implements OnChanges {
     @Input() meals: any;
     imagePath: string;
 
-    contructor() {
-        console.log(this.meals);
-    }
+    constructor() {}
 
-    ngOnInit() {
-        this.imagePath = `../../../../../../assets/layout/images/meals/${this.meals.dish.toLowerCase()}.png`;
+    ngOnChanges() {
+        this.imagePath = `../../../../../../assets/meals/${this.meals.dish}.png`;
     }
 }

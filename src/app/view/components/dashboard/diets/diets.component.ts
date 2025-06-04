@@ -1,10 +1,11 @@
 import { LowerCasePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { ChipsModule } from 'primeng/chips';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { MessagesModule } from 'primeng/messages';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
@@ -21,6 +22,7 @@ import { DietsService } from './services/diets.service';
         ButtonModule,
         CardModule,
         ChipsModule,
+        ConfirmDialogModule,
         DropdownModule,
         ProgressSpinnerModule,
         MessagesModule,
@@ -31,10 +33,10 @@ import { DietsService } from './services/diets.service';
     ],
     templateUrl: './diets.component.html',
     styleUrl: './diets.component.scss',
-    providers: [MessageService],
+    providers: [ConfirmationService, MessageService],
 })
 export class DietsComponent implements OnInit {
-    diets: any;
+    diets: any[];
     intolerances: string[] = [];
     selectedDiets: any;
     selectedDay: string;
@@ -51,7 +53,8 @@ export class DietsComponent implements OnInit {
 
     constructor(
         private dietsService: DietsService,
-        private messageService: MessageService
+        private messageService: MessageService,
+        private confirmationService: ConfirmationService
     ) {}
 
     ngOnInit(): void {
@@ -65,6 +68,11 @@ export class DietsComponent implements OnInit {
             next: (res) => {
                 this.diets = res.parsed_description;
 
+                const today = this.getCurrentDay();
+                this.selectedDay = today;
+
+                this.updateSelectedDiets(today);
+
                 this.messageService.add({
                     severity: 'success',
                     detail: 'Dieta criada com sucesso!',
@@ -75,7 +83,7 @@ export class DietsComponent implements OnInit {
             error: (e) => {
                 this.messageService.add({
                     severity: 'error',
-                    detail: e.message,
+                    detail: 'Erro ao criar dieta',
                 });
             },
         });
@@ -107,6 +115,24 @@ export class DietsComponent implements OnInit {
                 this.loading = false;
             },
         });
+    }
+
+    recreateDiets(event: Event) {
+        this.confirmationService.confirm({
+            target: event.target as EventTarget,
+            message:
+                'Você já tem uma dieta. Tem certeza que deseja gerar outra?',
+            header: 'Refazer dieta',
+            acceptIcon: 'none',
+            acceptLabel: 'Sim',
+            rejectIcon: 'none',
+            rejectLabel: 'Não',
+            rejectButtonStyleClass: 'p-button-text',
+            accept: () => {
+                this.createDiet();
+            },
+            reject: () => {},
+        })
     }
 
     getCurrentDay() {

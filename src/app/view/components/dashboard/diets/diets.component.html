@@ -1,35 +1,43 @@
 <p-toast position="bottom-center" />
+<p-confirmDialog />
 
 @if(loading) {
 <p-card header="Dieta">
-    <p-skeleton
-        class="lg:col-4 md:col-6 col-12"
-        height="2rem"
-        styleClass="mb-2"
-    />
+    <div class="flex sm:flex-row flex-column sm:justify-content-between w-full mb-3">
+        <p-skeleton
+            class="sm:w-4 w-full sm:mb-0 mb-2"
+            height="2.5rem"
+            styleClass="mb-2"
+        />
+        <p-skeleton
+            class="sm:w-4 w-full sm:mb-0 mb-2"
+            height="2.5rem"
+            styleClass="mb-2"
+        />
+    </div>
     <div class="grid">
         <p-skeleton
-            class="lg:col-4 md:col-6 col-12"
+            class="lg:col-6 md:col-6 col-12"
             width="100%"
             height="131px"
         />
         <p-skeleton
-            class="lg:col-4 md:col-6 col-12"
+            class="lg:col-6 md:col-6 col-12"
             width="100%"
             height="131px"
         />
         <p-skeleton
-            class="lg:col-4 md:col-6 col-12"
+            class="lg:col-6 md:col-6 col-12"
             width="100%"
             height="131px"
         />
         <p-skeleton
-            class="lg:col-4 md:col-6 col-12"
+            class="lg:col-6 md:col-6 col-12"
             width="100%"
             height="131px"
         />
         <p-skeleton
-            class="lg:col-4 md:col-6 col-12"
+            class="lg:col-6 md:col-6 col-12"
             width="100%"
             height="131px"
         />
@@ -56,20 +64,22 @@
 
 } @else {
 <p-card header="Dieta de {{ selectedDay | lowercase }}">
-    <div class="grid">
+    <div class="flex sm:flex-row flex-column sm:justify-content-between w-full mb-3">
         <p-dropdown
             [options]="daysOfWeek"
             [(ngModel)]="selectedDay"
             (onChange)="updateSelectedDiets($event.value)"
             placeholder="Selecione um dia"
-            class="lg:col-4 md:col-6 col-12"
+            class="sm:w-4 w-full sm:mb-0 mb-2"
         />
+
+        <p-button class="sm:w-4 w-full sm:mb-0 mb-2 recreateButton" icon="pi pi-refresh" label="Gerar outro dieta" (click)="recreateDiets($event)"/>
     </div>
 
     @if(selectedDay === 'Sábado' || selectedDay === 'Domingo') {
     <p-messages severity="info">
         <ng-template pTemplate>
-            Você não tem um dieta programada para hoje.
+            Você não tem uma dieta programada para hoje.
         </ng-template>
     </p-messages>
     } @else if (selectedDiets) {
