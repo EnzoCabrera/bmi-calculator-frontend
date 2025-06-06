@@ -60,6 +60,8 @@ export class DashboardComponent implements OnInit {
 
                         this.router.navigate(['./login']);
                     }, 3100);
+
+                    return;
                 }
 
                 if (error.status === 404) {
@@ -71,6 +73,8 @@ export class DashboardComponent implements OnInit {
                     setTimeout(() => {
                         this.router.navigate(['./dashboard/avaliacao-fisica']);
                     }, 3100);
+
+                    return;
                 }
 
                 if (error.status !== 401 || error.status !== 404) {
@@ -78,6 +82,8 @@ export class DashboardComponent implements OnInit {
                         severity: 'error',
                         detail: error.error.detail,
                     });
+
+                    return;
                 }
             },
         });
