@@ -42,14 +42,14 @@ export class DashboardComponent implements OnInit {
     loadUserData() {
         this.loading = true;
         this.assessmentService.lastBmi().subscribe({
-            next: (res) => {
-                this.user = res;
+            next: (response) => {
+                this.user = response;
                 this.loading = false;
             },
-            error: (e) => {
+            error: (error) => {
                 this.loading = false;
 
-                if (e.status === 401) {
+                if (error.status === 401) {
                     this.messageService.add({
                         severity: 'error',
                         detail: 'Tempo de sessão expirado. Entre novamente!',
@@ -62,7 +62,7 @@ export class DashboardComponent implements OnInit {
                     }, 3100);
                 }
 
-                if (e.status === 404) {
+                if (error.status === 404) {
                     this.messageService.add({
                         severity: 'info',
                         detail: 'Você ainda não realizou sua avaliação física.',
@@ -73,6 +73,12 @@ export class DashboardComponent implements OnInit {
                         this.router.navigate(['./dashboard/avaliacao-fisica']);
                     }, 3100);
                 }
+
+                this.messageService.add({
+                    severity: 'error',
+                    detail: error.error.detail,
+                });
+
             },
         });
     }

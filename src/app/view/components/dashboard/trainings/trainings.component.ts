@@ -62,8 +62,8 @@ export class TrainingsComponent implements OnInit {
         this.loading = true;
 
         this.trainingsService.create().subscribe({
-            next: (res) => {
-                this.trainings = res.parsed_description;
+            next: (response) => {
+                this.trainings = response.parsed_description;
 
                 const today = this.getCurrentDay();
                 this.selectedDay = today;
@@ -77,24 +77,23 @@ export class TrainingsComponent implements OnInit {
 
                 this.loading = false;
             },
-            error: () => {
+            error: (error) => {
                 this.messageService.add({
                     severity: 'error',
-                    summary: 'Erro',
-                    detail: 'Erro ao criar treino',
+                    detail: error.error.detail,
                 });
+
+                this.loading = false;
             },
         });
-
-        //this.loadTraninings();
     }
 
     loadTraninings() {
         this.loading = true;
 
         this.trainingsService.loadById().subscribe({
-            next: (res) => {
-                this.trainings = res.parsed_description;
+            next: (response) => {
+                this.trainings = response.parsed_description;
 
                 const today = this.getCurrentDay();
                 this.selectedDay = today;
@@ -103,11 +102,10 @@ export class TrainingsComponent implements OnInit {
 
                 this.loading = false;
             },
-            error: () => {
+            error: (error) => {
                 this.messageService.add({
                     severity: 'error',
-                    summary: 'Erro',
-                    detail: 'Erro ao carregar treino.',
+                    detail: error.error.detail,
                 });
 
                 this.loading = false;

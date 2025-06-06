@@ -37,7 +37,7 @@ import { DietsService } from './services/diets.service';
 })
 export class DietsComponent implements OnInit {
     diets: any[];
-    intolerances: string[] = [];
+    intolerances: string[];
     selectedDiets: any;
     selectedDay: string;
     daysOfWeek = [
@@ -65,8 +65,8 @@ export class DietsComponent implements OnInit {
         this.loading = true;
 
         this.dietsService.create(this.intolerances).subscribe({
-            next: (res) => {
-                this.diets = res.parsed_description;
+            next: (response) => {
+                this.diets = response.parsed_description;
 
                 const today = this.getCurrentDay();
                 this.selectedDay = today;
@@ -80,11 +80,13 @@ export class DietsComponent implements OnInit {
 
                 this.loading = false;
             },
-            error: (e) => {
+            error: (error) => {
                 this.messageService.add({
                     severity: 'error',
-                    detail: 'Erro ao criar dieta',
+                    detail: error.error.detail,
                 });
+
+                this.loading = false;
             },
         });
     }
@@ -93,23 +95,20 @@ export class DietsComponent implements OnInit {
         this.loading = true;
 
         this.dietsService.loadById().subscribe({
-            next: (res) => {
-                this.diets = res.parsed_description;
+            next: (response) => {
+                this.diets = response.parsed_description;
 
                 const today = this.getCurrentDay();
                 this.selectedDay = today;
 
                 this.updateSelectedDiets(today);
 
-                console.log(this.diets);
-
                 this.loading = false;
             },
-            error: () => {
+            error: (error) => {
                 this.messageService.add({
                     severity: 'error',
-                    summary: 'Erro',
-                    detail: 'Erro ao carregar dieta.',
+                    detail: error.error.detail,
                 });
 
                 this.loading = false;
@@ -132,7 +131,7 @@ export class DietsComponent implements OnInit {
                 this.createDiet();
             },
             reject: () => {},
-        })
+        });
     }
 
     getCurrentDay() {

@@ -54,7 +54,7 @@ export class LoginComponent {
 
                 this.messageService.add({
                     severity: 'error',
-                    detail: 'Usuário ou senha inválidos.',
+                    detail: error.error.detail,
                 });
 
                 this.loading = false;

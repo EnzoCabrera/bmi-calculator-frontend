@@ -67,7 +67,7 @@ export class SignupComponent {
 
                 this.messageService.add({
                     severity: 'error',
-                    detail: 'Erro ao criar o usuário!',
+                    detail: error.error.detail,
                 });
 
                 this.loading = false;
