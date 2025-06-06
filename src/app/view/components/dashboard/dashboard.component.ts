@@ -69,16 +69,16 @@ export class DashboardComponent implements OnInit {
                     });
 
                     setTimeout(() => {
-
                         this.router.navigate(['./dashboard/avaliacao-fisica']);
                     }, 3100);
                 }
 
-                this.messageService.add({
-                    severity: 'error',
-                    detail: error.error.detail,
-                });
-
+                if (error.status !== 401 || error.status !== 404) {
+                    this.messageService.add({
+                        severity: 'error',
+                        detail: error.error.detail,
+                    });
+                }
             },
         });
     }

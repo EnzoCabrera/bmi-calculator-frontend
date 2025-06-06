@@ -1,27 +1,52 @@
-# Sakai
+# BMI Fit
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.4.
+**BMI Fit** é uma aplicação web do tipo **Single Page Application (SPA)** desenvolvida com **Angular**, como parte da disciplina *Modelos, Métodos e Técnicas da Engenharia de Software*. O sistema tem como objetivo auxiliar pessoas de baixa renda no cálculo do **Índice de Massa Corporal (IMC)** e na criação de **planos de treino e dieta** personalizados para promoção da saúde.
 
-## Development server
+---
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## 👨‍💻 Integrantes do Grupo
 
-## Code scaffolding
+- Enzo Nascimento Cabrera — 202320732  
+- Geziel Oliveira Silva — 202313071  
+- Tannus Koussa Neto — 202313269  
+- William Menezes Damascena — 202512580
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+---
 
-## Build
+## 🚀 Tecnologias Utilizadas
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- **Angular 17**
+- **TypeScript**
+- **PrimeNG 17**
+- **PrimeFlex 3.3**
 
-## Running unit tests
+---
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## 🗂️ Estrutura do Projeto
 
-## Running end-to-end tests
+A estrutura segue o padrão Angular, com os seguintes módulos principais:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- **layout/**: Componentes de interface como footer, topbar, sidebar e menu.
+- **view/**: Componentes que concentram a lógica de negócio.
+  - **auth/**: Módulos, componentes e serviços de autenticação.
+  - **dashboard/**: Módulos, componentes e serviços da área principal do sistema.
 
-## Further help
+---
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## ✅ Funcionalidades
+
+### 👤 Usuários
+- **Cadastro**: Registro de novos usuários.
+- **Login**: Autenticação de acesso.
+
+### 📏 IMC
+- **Avaliação física**: Formulário para coleta de dados e cálculo do IMC.
+- **Dashboard**: Exibição dos dados informados.
+
+### 🏋️‍♂️ Treinos
+- **Criação de treinos**: Disponível após a avaliação física.
+- **Redefinição de treinos**: Atualização dos treinos cadastrados.
+
+### 🥗 Dietas
+- **Criação de dietas**: Considera restrições alimentares.
+- **Redefinição de dietas**: Permite editar ou substituir planos alimentares.
