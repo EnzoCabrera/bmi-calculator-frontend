@@ -24,10 +24,12 @@ export class SignupComponent {
                 Validators.required,
                 Validators.minLength(5),
             ]),
+            agreement: new FormControl(false, [Validators.requiredTrue]),
         },
         { validators: [matchPasswordValidator], updateOn: 'blur' }
     );
 
+    visible: boolean = false;
     loading: boolean = false;
 
     constructor(
@@ -98,5 +100,9 @@ export class SignupComponent {
         }
 
         return 'Campo inválido';
+    }
+
+    showTerms() {
+        this.visible = true;
     }
 }

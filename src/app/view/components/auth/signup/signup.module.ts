@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
+import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { MessagesModule } from 'primeng/messages';
 import { PasswordModule } from 'primeng/password';
@@ -18,6 +19,7 @@ import { SignupComponent } from './signup.component';
         ReactiveFormsModule,
         ButtonModule,
         CheckboxModule,
+        DialogModule,
         InputTextModule,
         MessagesModule,
         PasswordModule,

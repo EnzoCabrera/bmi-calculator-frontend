@@ -6,7 +6,6 @@
         color: var(--primary-color) !important;
     }
 
-    .p-button,
     .p-password,
     label,
     input {
@@ -45,6 +44,14 @@
         align-items: center;
         background-color: rgba(0, 0, 0, 0.1);
         z-index: 100;
+    }
+
+    //label > .p-button > button {padding: 0 !important; }
+
+    label {
+        .p-button {
+            padding: 0 !important;
+        }
     }
 }
 .container {
