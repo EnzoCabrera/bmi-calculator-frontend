@@ -1,22 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './login.component';
+import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { MessagesModule } from 'primeng/messages';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import { MessagesModule } from 'primeng/messages';
 import { PasswordModule } from 'primeng/password';
-import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ToastModule } from 'primeng/toast';
-import { AuthService } from '../services/auth.service';
-import { SignupComponent } from './signup.component';
-import { CheckboxModule } from 'primeng/checkbox';
-import { DialogModule } from 'primeng/dialog';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
-describe('SignupComponent', () => {
-    let component: SignupComponent;
-    let fixture: ComponentFixture<SignupComponent>;
+describe('LoginComponent', () => {
+    let component: LoginComponent;
+    let fixture: ComponentFixture<LoginComponent>;
     let authServiceSpy: jasmine.SpyObj<AuthService>;
     let routerSpy: jasmine.SpyObj<Router>;
     let messageService: MessageService;
@@ -26,13 +24,11 @@ describe('SignupComponent', () => {
         routerSpy = jasmine.createSpyObj('Router', ['navigate']);
 
         await TestBed.configureTestingModule({
-            declarations: [SignupComponent],
+            declarations: [LoginComponent],
             imports: [
                 ReactiveFormsModule,
                 MessagesModule,
                 ButtonModule,
-                CheckboxModule,
-                DialogModule,
                 InputTextModule,
                 PasswordModule,
                 ToastModule,
@@ -45,7 +41,7 @@ describe('SignupComponent', () => {
             ],
         }).compileComponents();
 
-        fixture = TestBed.createComponent(SignupComponent);
+        fixture = TestBed.createComponent(LoginComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
         messageService = TestBed.inject(MessageService);
