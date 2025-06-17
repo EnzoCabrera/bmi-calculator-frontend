@@ -38,6 +38,10 @@ describe('AuthService', () => {
         };
     });
 
+    afterEach(() => {
+        httpController.verify();
+    })
+
     it('should be created', () => {
         expect(service).toBeTruthy();
     });
@@ -56,7 +60,7 @@ describe('AuthService', () => {
         req.flush(user);
     });
 
-    it('should show error message when try to login with wrong data', () => {
+    it('should show error message when try to login with invalid data', () => {
         let errorMessage = {
             detail: {
                 error: 'E-mail ou senha incorretos. Verifique e tente novamente.asdfa',
