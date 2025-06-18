@@ -50,11 +50,12 @@ export class LoginComponent {
                 this.router.navigate(['/dashboard']);
             },
             error: (error) => {
+                console.log(error);
                 this.messageService.clear();
 
                 this.messageService.add({
                     severity: 'error',
-                    detail: error.error.detail,
+                    detail: error.error.detail.error,
                 });
 
                 this.loading = false;

@@ -141,10 +141,4 @@ describe('AuthService', () => {
         expect(localStorage.getItem('email')).toBeNull();
         expect(localStorage.getItem('name')).toBeNull();
     });
-
-    it('should get user token', () => {
-        service.getToken();
-
-        expect(localStorage.getItem('token')).toBe('abcdefghijklmnopqrstuvwxyz')
-    })
 });

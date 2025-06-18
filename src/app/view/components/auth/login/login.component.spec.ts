@@ -1,18 +1,24 @@
-import { ComponentFixture, TestBed, tick } from '@angular/core/testing';
+import {
+    ComponentFixture,
+    fakeAsync,
+    TestBed,
+    tick,
+} from '@angular/core/testing';
 
-import { ReactiveFormsModule } from '@angular/forms';
-import { LoginComponent } from './login.component';
-import { AuthService } from '../services/auth.service';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { MessagesModule } from 'primeng/messages';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
+import { MessagesModule } from 'primeng/messages';
 import { PasswordModule } from 'primeng/password';
-import { ToastModule } from 'primeng/toast';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
-import { of } from 'rxjs';
+import { ToastModule } from 'primeng/toast';
+import { of, throwError } from 'rxjs';
 import { User } from '../models/user';
+import { AuthService } from '../services/auth.service';
+import { LoginComponent } from './login.component';
 
 describe('LoginComponent', () => {
     let component: LoginComponent;
@@ -43,6 +49,7 @@ describe('LoginComponent', () => {
                 PasswordModule,
                 ToastModule,
                 ProgressSpinnerModule,
+                BrowserAnimationsModule,
             ],
             providers: [
                 { provide: AuthService, useValue: authServiceSpy },
@@ -76,25 +83,45 @@ describe('LoginComponent', () => {
         expect(button.disabled).toBeTrue();
     });
 
-    it('shold login with correct data', () => {
+    it('should login with correct data', () => {
+        const user: User = {
+            access_token: 'abcdefghijklmnopqrstuvwxyz',
+            token_type: 'bearer',
+            email: 'teste@email.com',
+            name: 'Teste',
+        };
+
+        authServiceSpy.login.and.returnValue(of(user));
 
         component.loginForm.setValue({
             email: 'teste@email.com',
             password: 'password',
         });
+
         component.login();
 
-        fixture.detectChanges();
-
         expect(component.loginForm.valid).toBeTrue();
-        /* expect(authServiceSpy.login).toHaveBeenCalledWith(
+        expect(authServiceSpy.login).toHaveBeenCalled();
+        expect(authServiceSpy.login).toHaveBeenCalledWith(
             'teste@email.com',
             'password'
         );
-        expect(messageServiceSpy.add).toHaveBeenCalledWith({
-            severity: 'success',
-            detail: 'Login realizado com sucesso!',
-        }); */
+        expect(authServiceSpy.saveUserInfo).toHaveBeenCalledWith(user);
         expect(routerSpy.navigate).toHaveBeenCalledWith(['/dashboard']);
     });
+
+    it('should display "Campo obrigatório" for empty password field', fakeAsync(() => {
+        const passwordControl = component.loginForm.get(
+            'password'
+        ) as FormControl;
+        passwordControl.setValue('');
+        passwordControl.markAsDirty();
+        passwordControl.markAsTouched();
+
+        fixture.detectChanges();
+        tick();
+
+        expect(passwordControl.hasError('required')).toBeTrue();
+        expect(component.getErrorMessage('password')).toBe('Campo obrigatório');
+    }));
 });
