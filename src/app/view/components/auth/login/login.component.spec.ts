@@ -123,4 +123,32 @@ describe('LoginComponent', () => {
         expect(passwordControl.hasError('required')).toBeTrue();
         expect(component.getErrorMessage('password')).toBe('Campo obrigatório');
     });
+
+    it('should display "Campo obrigatório" for empty email field', () => {
+        const emailControl = component.loginForm.get(
+            'email'
+        ) as FormControl;
+        emailControl.setValue('');
+        emailControl.markAsDirty();
+        emailControl.markAsTouched();
+
+        fixture.detectChanges();
+
+        expect(emailControl.hasError('required')).toBeTrue();
+        expect(component.getErrorMessage('email')).toBe('Campo obrigatório');
+    });
+
+    it('should display "E-mail inválido" for invalid email field', () => {
+        const emailControl = component.loginForm.get(
+            'email'
+        ) as FormControl;
+        emailControl.setValue('invalid-email');
+        emailControl.markAsDirty();
+        emailControl.markAsTouched();
+
+        fixture.detectChanges();
+
+        expect(emailControl.hasError('email')).toBeTrue();
+        expect(component.getErrorMessage('email')).toBe('E-mail inválido');
+    });
 });
