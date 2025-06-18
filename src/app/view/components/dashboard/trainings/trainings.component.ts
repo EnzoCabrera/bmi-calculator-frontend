@@ -93,6 +93,7 @@ export class TrainingsComponent implements OnInit {
 
         this.trainingsService.loadById().subscribe({
             next: (response) => {
+                console.log(response);
                 this.trainings = response.parsed_description;
 
                 const today = this.getCurrentDay();

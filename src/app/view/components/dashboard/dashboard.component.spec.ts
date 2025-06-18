@@ -27,7 +27,7 @@ describe('DashboardComponent', () => {
         assessmentServiceSpy = jasmine.createSpyObj('AssessmentService', [
             'lastBmi',
         ]);
-        messageServiceSpy = jasmine.createSpyObj('messageServiceSpy', [
+        messageServiceSpy = jasmine.createSpyObj('MessageService', [
             'add',
             'clear',
         ]);
