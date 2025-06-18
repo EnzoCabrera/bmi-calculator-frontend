@@ -83,10 +83,12 @@
                 <p-messages />
 
                 <button
+                    data-testid="submitButton-loginForm"
                     pButton
                     pRipple
                     label="Entrar"
                     class="w-full p-3 text-xl"
+                    [disabled]="!loginForm.valid"
                     type="submit"
                 ></button>
             </form>
