@@ -209,6 +209,7 @@
                         >Nome</label
                     >
                     <input
+                        data-testid="inputFullName-signupForm"
                         formControlName="fullName"
                         type="text"
                         id="fullName"
@@ -238,6 +239,7 @@
                         >Email</label
                     >
                     <input
+                        data-testid="inputEmail-signupForm"
                         formControlName="email"
                         type="email"
                         id="email"
@@ -265,6 +267,7 @@
                         >Senha</label
                     >
                     <p-password
+                        data-testid="inputPassword-signupForm"
                         formControlName="password"
                         id="password"
                         placeholder="Sua senha"
@@ -292,6 +295,7 @@
                         >Confirmar senha</label
                     >
                     <p-password
+                        data-testid="inputPasswordConfirmation-signupForm"
                         formControlName="passwordConfirmation"
                         id="passwordConfirmation"
                         placeholder="Confirme sua senha"
@@ -332,6 +336,7 @@
                 <p-toast position="center" />
 
                 <button
+                    data-testid="submitButton-signupForm"
                     pButton
                     pRipple
                     label="Cadastrar"

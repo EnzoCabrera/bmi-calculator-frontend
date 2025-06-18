@@ -15,7 +15,7 @@ import { MessagesModule } from 'primeng/messages';
 import { PasswordModule } from 'primeng/password';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ToastModule } from 'primeng/toast';
-import { of, throwError } from 'rxjs';
+import { of } from 'rxjs';
 import { User } from '../models/user';
 import { AuthService } from '../services/auth.service';
 import { LoginComponent } from './login.component';
@@ -110,7 +110,7 @@ describe('LoginComponent', () => {
         expect(routerSpy.navigate).toHaveBeenCalledWith(['/dashboard']);
     });
 
-    it('should display "Campo obrigatório" for empty password field', fakeAsync(() => {
+    it('should display "Campo obrigatório" for empty password field', () => {
         const passwordControl = component.loginForm.get(
             'password'
         ) as FormControl;
@@ -119,9 +119,8 @@ describe('LoginComponent', () => {
         passwordControl.markAsTouched();
 
         fixture.detectChanges();
-        tick();
 
         expect(passwordControl.hasError('required')).toBeTrue();
         expect(component.getErrorMessage('password')).toBe('Campo obrigatório');
-    }));
+    });
 });
